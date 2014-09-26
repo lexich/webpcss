@@ -12,9 +12,9 @@ WebP is image format that is smaller, that PNG or JPEG, but it is [supported](ht
 Using with [gulp-postcss](https://github.com/w0rm/gulp-postcss):
 
 ```js
-var gulp = require('gulp')
-var postcss = require('gulp-postcss')
-var autoprefixer = require('autoprefixer-core')
+var gulp = require('gulp');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer-core');
 var webpcss = require('webpcss-transform');
 
 gulp.task('css', function () {
