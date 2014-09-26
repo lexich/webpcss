@@ -1,6 +1,6 @@
 {
   "name": "webpcss-transform",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "small library to grunt-webpcss && gulp-webpcss modules",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "author": "lexich121@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "postcss": "^0.3.4",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "postcss": "^0.3.5"
   }
 }
