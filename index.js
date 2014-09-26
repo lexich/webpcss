@@ -10,8 +10,8 @@
 var postcss = require('postcss');
 var _ = require('lodash');
 
-module.exports = function (data, options){
-	var proc = postcss(function(css){
+function processor (options){
+	return function (css){
 		var nodes = [];
 		css.eachDecl(function(rule, data) {
 			if(rule.prop.match(/^background/) && rule._value.match(/url/) ){
@@ -44,6 +44,12 @@ module.exports = function (data, options){
 		for(var n=0; n < nodes.length; n++){
 			css.append(nodes[n]);
 		}
-	});
-	return proc.process(data).css;
+	}
 }
+
+function transform (data, options){
+	return postcss(processor(options)).process(data).css;
+}
+
+module.exports.processor = processor;
+module.exports.transform = transform;
