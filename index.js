@@ -41,7 +41,7 @@ function processor (_options){
         new_rule.append({
           prop:prop,
           value: value,
-          after: ";"
+          semicolon: true
         });
         nodes.push(new_rule);
       }
