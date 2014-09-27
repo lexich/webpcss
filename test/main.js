@@ -27,8 +27,8 @@ describe("webpcss", function(){
     webpcss.transform(input).should.be.equal(output);
   });
   it("default options multiple mixed clasess", function(){
-    var input = ".test1{ background: url(\"test1.jpeg\")}" + 
-        ".test2{ background-image: url(\'test2.png\')}";
+    var input = ".test1{ background: url(\"test1.jpeg\");}" + 
+        ".test2{ background-image: url(\'test2.png\');}";
     var output = input + ".webp .test1{ background-image: url(\"test1.webp\");}" +
       ".webp .test2{ background-image: url(\'test2.webp\');}";
     webpcss.transform(input).should.be.equal(output);
