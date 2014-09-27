@@ -4,17 +4,29 @@
   "description": "small library to grunt-webpcss && gulp-webpcss modules",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+     "test": "istanbul test _mocha --report html -- test/*.js --reporter spec",
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "keywords": [
     "webp",
     "node",
     "postcss"
   ],
-  "author": "lexich121@gmail.com",
+  "author": {
+    "name": "Efremov Alex",
+    "email": "lexich121@gmail.com",
+    "url": "https://github.com/lexich"
+  },
   "license": "MIT",
   "dependencies": {
     "lodash": "^2.4.1",
     "postcss": "^0.3.5"
+  },
+  "devDependencies": {
+    "coveralls": "*",
+    "istanbul": "*",
+    "mocha": "*",
+    "mocha-lcov-reporter": "*",
+    "should": "~2.1.0"
   }
 }
