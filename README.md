@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/lexich/webpcss-transform.svg)](https://travis-ci.org/lexich/webpcss-transform)
 ### About
 [PostCSS](https://github.com/postcss/postcss) processor to add links to WebP images for browsers that support it.
 
