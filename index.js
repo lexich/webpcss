@@ -29,6 +29,7 @@ function processor (_options){
       var rx = options.replace_from;
       if(!_.isRegExp(options.replace_from)){ rx = new RegExp(rx); }
       var value = rule._value.replace(rx,options.replace_to);
+      if(value === rule.value){ return; }
       var prop = rule.prop;
       if( value.indexOf(",") === -1 && /url[ ]*\((.+)\)/g.exec(value) ){
         value = "url(" + RegExp.$1 + ");";
