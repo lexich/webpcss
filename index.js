@@ -19,29 +19,29 @@ function processor (_options){
   return function (css){
     var nodes = [];
     css.eachDecl(function(rule, data) {
-    if(rule.prop.indexOf("background") === 0 && rule._value.indexOf("url") >= 0 ){
-      var selector = "";
-      var selectors = rule.parent.selector.split(',');
-      for(var index in selectors){
-        if(!!selector){ selector += ", "; }
-        selector += options.baseClass + " " + selectors[index].trim();
+      if(rule.prop.indexOf("background") === 0 && rule._value.indexOf("url") >= 0 ){
+        var selector = "";
+        var selectors = rule.parent.selector.split(',');
+        for(var index in selectors){
+          if(!!selector){ selector += ", "; }
+          selector += options.baseClass + " " + selectors[index].trim();
+        }
+        var rx = options.replace_from;
+        if(!_.isRegExp(options.replace_from)){ rx = new RegExp(rx); }
+        var value = rule._value.replace(rx,options.replace_to);
+        if(value === rule.value){ return; }
+        var prop = rule.prop;
+        if( value.indexOf(",") === -1 && /url[ ]*\((.+)\)/g.exec(value) ){
+          value = "url(" + RegExp.$1 + ");";
+          prop = "background-image";
+        }
+        var new_rule = postcss.rule({selector:selector});
+        new_rule.append({
+          prop:prop,
+          value: value
+        });
+        nodes.push(new_rule);
       }
-      var rx = options.replace_from;
-      if(!_.isRegExp(options.replace_from)){ rx = new RegExp(rx); }
-      var value = rule._value.replace(rx,options.replace_to);
-      if(value === rule.value){ return; }
-      var prop = rule.prop;
-      if( value.indexOf(",") === -1 && /url[ ]*\((.+)\)/g.exec(value) ){
-        value = "url(" + RegExp.$1 + ");";
-        prop = "background-image";
-      }
-      var new_rule = postcss.rule({selector:selector});
-      new_rule.append({
-        prop:prop,
-        value: value
-      });
-      nodes.push(new_rule);
-    }
     });
     for(var n=0; n < nodes.length; n++){
       css.append(nodes[n]);
