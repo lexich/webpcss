@@ -3,6 +3,7 @@
 
 var fs = require("fs"),
     should = require("should"),
+    postcss = require("postcss"),
     webpcss = require("../");
 
 describe("webpcss", function(){
@@ -56,6 +57,10 @@ describe("webpcss", function(){
     var output = input + ".webp .test { background-image: url(test.other); }";
     webpcss.transform(input, {replace_to: ".other"}).should.be.equal(output);
   });
-
+  it("check postcss processor api", function(){
+    var input = ".test { background-image: url(test.jpg); }";
+    var output = input + ".webp .test { background-image: url(test.webp); }";
+    postcss(webpcss.webpcss).process(input).css.should.be.equal(output);
+  });
 });
 
