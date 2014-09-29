@@ -18,32 +18,32 @@ function processor (_options){
   });
   return function (css){
     var nodes = [];
-    css.eachDecl(function(rule, data) {
-      if(rule.prop.indexOf("background") === 0 && rule.value.indexOf("url") >= 0 ){
+    css.eachDecl(function(decl, data) {
+      if(decl.prop.indexOf("background") === 0 && decl.value.indexOf("url") >= 0 ){
         var selector = "";
-        for(var index in rule.parent.selectors){
+        for(var index in decl.parent.selectors){
           if(!!selector){ selector += ", "; }
-          selector += options.baseClass + " " + rule.parent.selectors[index].trim();
+          selector += options.baseClass + " " + decl.parent.selectors[index].trim();
         }
         var rx = options.replace_from;
         if(!_.isRegExp(options.replace_from)){ rx = new RegExp(rx); }
-        var value = rule.value.replace(rx,options.replace_to);
-        if(value === rule.value){ return; }
-        var prop = rule.prop;
+        var value = decl.value.replace(rx,options.replace_to);
+        if(value === decl.value){ return; }
+        var prop = decl.prop;
         if( value.indexOf(",") === -1 && /url[ ]*\((.+)\)/g.exec(value) ){
           value = "url(" + RegExp.$1 + ")";
           prop = "background-image";
         }
-        var new_rule = rule.parent.clone({selector: selector});
-        new_rule.each(function (decl, i) {
-            new_rule.remove(i);
+        var new_decl = decl.parent.clone({selector: selector});
+        new_decl.each(function (decl, i) {
+            new_decl.remove(i);
         });
-        new_rule.append({
+        new_decl.append({
           prop:prop,
           value: value,
           semicolon: true
         });
-        nodes.push(new_rule);
+        nodes.push(new_decl);
       }
     });
     for(var n=0; n < nodes.length; n++){
