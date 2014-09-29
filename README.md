@@ -20,7 +20,7 @@ var autoprefixer = require('autoprefixer-core');
 var webpcss = require('webpcss-transform');
 
 gulp.task('webp', function () {
-    return gulp.src('./images/*.png')
+    return gulp.src('./images/*.{png,jpg}')
         .pipe(webp())
         .pipe(gulp.dest('./images'));
 });
