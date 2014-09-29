@@ -60,7 +60,7 @@ describe("webpcss", function(){
   it("check postcss processor api", function(){
     var input = ".test { background-image: url(test.jpg); }";
     var output = input + ".webp .test { background-image: url(test.webp); }";
-    postcss(webpcss.webpcss).process(input).css.should.be.equal(output);
+    postcss(webpcss.webpcss.postcss).process(input).css.should.be.equal(output);
   });
 });
 

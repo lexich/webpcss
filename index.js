@@ -49,4 +49,4 @@ function transform (data, options){
 
 module.exports.Webpcss = Webpcss;
 module.exports.transform = transform;
-module.exports.webpcss = new Webpcss().postcss;
+module.exports.webpcss = new Webpcss();
