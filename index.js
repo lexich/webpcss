@@ -8,14 +8,22 @@
 'use strict';
 
 var postcss = require("postcss");
-var _ = require("lodash");
+
+var DEFAULTS = {
+  baseClass: ".webp",
+  replace_from: /\.(png|jpg|jpeg)/g,
+  replace_to: ".webp"
+};
 
 function Webpcss(opts){
-  this.options = _.defaults(opts || {}, {
-    baseClass: ".webp",
-    replace_from: /\.(png|jpg|jpeg)/g,
-    replace_to: ".webp"
-  });
+  if(!opts){
+    this.options = DEFAULTS;
+  } else {
+    this.options = {};
+    for(var key in DEFAULTS){
+      this.options[key] = opts[key] || DEFAULTS[key];
+    }
+  }
   this.postcss = Webpcss.prototype.postcss.bind(this);
 }
 
@@ -24,10 +32,11 @@ Webpcss.prototype.postcss = function (css){
   var options = this.options;
   css.eachDecl(function(decl, data) {
     if(decl.prop.indexOf("background") === 0 && decl.value.indexOf("url") >= 0 ){
-      var selector = _.map(decl.parent.selectors, function(sel, i){
-        return options.baseClass + " " + sel;
-      }).join(", ");
-      var rx = _.isRegExp(options.replace_from) ? options.replace_from : new RegExp(rx, "g");
+      var selector = "";
+      decl.parent.selectors.forEach(function(sel){
+        selector += options.baseClass + " " + sel;
+      });
+      var rx = options.replace_from instanceof RegExp ? options.replace_from : new RegExp(rx, "g");
       var value = decl.value.replace(rx, options.replace_to);
       if(value === decl.value){ return; }
       var prop = decl.prop;
