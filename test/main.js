@@ -27,6 +27,11 @@ describe("webpcss", function(){
     var output = input + ".webp .test { background-image: url(test.webp); }";
     webpcss.transform(input).should.be.equal(output);
   });
+  it("default options background multiple urls", function(){
+    var input = ".img_play_photo_multiple{ background: url(number.png) 600px 10px no-repeat, url(\"thingy.png\") 10px 10px no-repeat, url('Paper-4.png');}";
+    var output = input + ".webp .img_play_photo_multiple{ background: url(number.webp) 600px 10px no-repeat, url(\"thingy.webp\") 10px 10px no-repeat, url('Paper-4.webp');}";
+    webpcss.transform(input).should.be.equal(output);
+  });
   it("default options multiple mixed clasess", function(){
     var input = ".test1{ background: url(\"test1.jpeg\");}" + 
         ".test2{ background-image: url(\'test2.png\');}";

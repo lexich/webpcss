@@ -13,7 +13,7 @@ var _ = require("lodash");
 function Webpcss(opts){
   this.options = _.defaults(opts || {}, {
     baseClass: ".webp",
-    replace_from: /\.(png|jpg|jpeg)/,
+    replace_from: /\.(png|jpg|jpeg)/g,
     replace_to: ".webp"
   });
   this.postcss = Webpcss.prototype.postcss.bind(this);
@@ -27,15 +27,17 @@ Webpcss.prototype.postcss = function (css){
       var selector = _.map(decl.parent.selectors, function(sel, i){
         return options.baseClass + " " + sel;
       }).join(", ");
-      var rx = _.isRegExp(options.replace_from) ? options.replace_from : new RegExp(rx);
+      var rx = _.isRegExp(options.replace_from) ? options.replace_from : new RegExp(rx, "g");
       var value = decl.value.replace(rx, options.replace_to);
       if(value === decl.value){ return; }
+      var prop = decl.prop;
       if( value.indexOf(",") === -1 && /url[ ]*\((.+)\)/g.exec(value) ){
         value = "url(" + RegExp.$1 + ")";
-      } else { return; }
+        prop = "background-image";
+      }
       var new_decl = decl.parent.clone({selector: selector});
       new_decl.each(function (decl, i) { new_decl.remove(i); });
-      new_decl.append({prop: "background-image", value: value, semicolon: true});
+      new_decl.append({prop: prop, value: value, semicolon: true});
       nodes.push(new_decl);
     }
   });
