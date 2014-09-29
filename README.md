@@ -14,32 +14,55 @@ Using with [gulp-postcss](https://github.com/w0rm/gulp-postcss):
 
 ```js
 var gulp = require('gulp');
+var webp = require('gulp-webp');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer-core');
 var webpcss = require('webpcss-transform');
 
+gulp.task('webp', function () {
+    return gulp.src('./images/*.png')
+        .pipe(webp())
+        .pipe(gulp.dest('./images'));
+});
+
 gulp.task('css', function () {
     var processors = [
         autoprefixer,
-        webpcss.processor()
+        webpcss.webpcss
     ];
     return gulp.src('./src/*.css')
         .pipe( postcss(processors) )
-        .pipe( gulp.dest('./dest') );
+        .pipe( gulp.dest('./dist') );
 });
+gulp.task('default',['webp', 'css']);
+```
+Run gulp
+```bash
+gulp
 ```
 
-It will compile:
+css task apply 2 processors: autoprefixer, webpcss
+Results of webpcss processor.
 
 ```css
-.icon { background-image: url('icon.png') }
+//Source:
+.icon { background-image: url('../images/icon.png') }
+
+//Result:
+.icon { background-image: url('../images/icon.png') }
+.webp .icon { background-image: url('../images/icon.webp') }
 ```
 
-to:
+webp task appends .webp images for every .png image.
+```sh
+#Source
+> ls images
+icon.png
 
-```css
-.icon { background-image: url('icon.png') }
-.webp .icon { background-image: url('icon.webp') }
+#Result
+> ls images
+icon.png icon.webp
 ```
 
-[Modernizr](http://modernizr.com/) adds `.webp` class to `body` if browser support WebP and browser will download smaller WebP image instead of bigger PNG.
+
+To checks browser support of webp format need to use [Modernizr](http://modernizr.com/) which adds `.webp` class to `body` if browser support WebP and browser will download smaller WebP image instead of bigger PNG.
