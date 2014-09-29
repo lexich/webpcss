@@ -28,8 +28,8 @@ describe("webpcss", function(){
     webpcss.transform(input).should.be.equal(output);
   });
   it("default options background multiple urls", function(){
-    var input = ".img_play_photo_multiple{ background: url(number.png) 600px 10px no-repeat, url(\"thingy.png\") 10px 10px no-repeat, url('Paper-4.png');}";
-    var output = input + ".webp .img_play_photo_multiple{ background: url(number.webp) 600px 10px no-repeat, url(\"thingy.webp\") 10px 10px no-repeat, url('Paper-4.webp');}";
+    var input = ".img_play_photo_multiple{ background: url(number.png) 600px 10px no-repeat,\nurl(\"thingy.png\") 10px 10px no-repeat,\nurl('Paper-4.png');\n}";
+    var output = input + ".webp .img_play_photo_multiple{ background: url(number.webp) 600px 10px no-repeat,\nurl(\"thingy.webp\") 10px 10px no-repeat,\nurl('Paper-4.webp');\n}";
     webpcss.transform(input).should.be.equal(output);
   });
   it("default options multiple mixed clasess", function(){
