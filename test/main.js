@@ -37,5 +37,25 @@ describe("webpcss", function(){
     var input = ".test { background: url(test.gif); }";
     webpcss.transform(input).should.be.equal(input);
   });
+  it("default options background data uri", function(){
+    var input = ".test { background: url(data:image/gif;base64,R0lGO) no-repeat; }";
+    webpcss.transform(input).should.be.equal(input);
+  });
+  it("custom options baseClass", function(){
+    var input = ".test { background-image: url(test.png); }";
+    var output = input + ".webp1 .test { background-image: url(test.webp); }";
+    webpcss.transform(input, {baseClass: ".webp1"}).should.be.equal(output);
+  });
+  it("custom options replace_from background with gif", function(){
+    var input = ".test { background: url(test.gif); }";
+    var output = input + ".webp .test { background-image: url(test.webp); }";
+    webpcss.transform(input, {replace_from: /\.gif/g}).should.be.equal(output);
+  });
+  it("custom options replace_to background-image with url", function(){
+    var input = ".test { background-image: url(test.jpg); }";
+    var output = input + ".webp .test { background-image: url(test.other); }";
+    webpcss.transform(input, {replace_to: ".other"}).should.be.equal(output);
+  });
+
 });
 
