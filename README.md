@@ -76,8 +76,8 @@ after
 ```css
 .test { background-image:url('test.png'); }
 .webp .test { background-image:url('test.webp'); }
-.webp class indicate webp browser support. Reccomends to use Modernizr
 ```
+.webp class indicate webp browser support. Recommends to use [Modernizr](http://modernizr.com/)
 
 - `replace_from`  
 Type: RegExp Default value: /\.(png|jpg|jpeg)/  
