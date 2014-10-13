@@ -22,6 +22,11 @@ describe("webpcss", function(){
     var output = input + ".webp .html.test { background-image: url('test.webp'); }";
     webpcss.transform(input).should.be.equal(output);
   });
+  it("multiple selectors", function(){
+    var input = ".test1, .test2 { background: url('test.png'); }";
+    var output = input + ".webp .test1, .webp .test2 { background-image: url('test.webp'); }";
+    webpcss.transform(input).should.be.equal(output);
+  });
   it("default options background-image with url", function(){
     var input = ".test { background-image: url(test.jpg); }";
     var output = input + ".webp .test { background-image: url(test.webp); }";

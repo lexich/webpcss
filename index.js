@@ -41,6 +41,7 @@ Webpcss.prototype.postcss = function (css){
     if(decl.prop.indexOf("background") === 0 && decl.value.indexOf("url") >= 0 ){
       var selector = "";
       decl.parent.selectors.forEach(function(sel){
+        if(!!selector){ selector += ", "; }
         selector += options.process_selector(sel, options.baseClass);
       });
       var rx = options.replace_from instanceof RegExp ? options.replace_from : new RegExp(rx, "g");
