@@ -60,5 +60,33 @@ icon.png
 icon.png icon.webp
 ```
 
+### Options
 
+- `baseClass`  
+Type: String Default value: '.webp'  
+Class which prepend selector. For expample:
+before
+
+```css
+.test { background-image:url('test.png'); }
+```
+
+after
+
+```css
+.test { background-image:url('test.png'); }
+.webp .test { background-image:url('test.webp'); }
+.webp class indicate webp browser support. Reccomends to use Modernizr
+```
+
+- `replace_from`  
+Type: RegExp Default value: /\.(png|jpg|jpeg)/  
+RegExp pattern for replace
+
+- `replace_to`  
+Type: String Default value: .webp  
 To checks browser support of webp format need to use [Modernizr](http://modernizr.com/) which adds `.webp` class to `body` if browser support WebP and browser will download smaller WebP image instead of bigger PNG.
+
+- `process_selector`  
+Type: function(selector, baseClass)  
+modify `selector` with `baseClass`  
