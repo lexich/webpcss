@@ -40,16 +40,17 @@ gulp.task('default',['webp', 'css']);
 Results of webpcss processor.
 
 ```css
-//Source:
+/* Source */
 .icon { background-image: url('../images/icon.png') }
 
-//Result:
+/* Result */
 .icon { background-image: url('../images/icon.png') }
 .webp .icon { background-image: url('../images/icon.webp') }
 ```
 
 Results of webp task.
 webp task appends .webp images for every .png image.
+
 ```sh
 #Source
 > ls images
