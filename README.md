@@ -91,3 +91,8 @@ To checks browser support of webp format need to use [Modernizr](http://moderniz
 - `process_selector`  
 Type: function(selector, baseClass)  
 modify `selector` with `baseClass`  
+
+### Changelog
+- 0.0.7 - fix bug with multiple selectors
+- 0.0.6 - add process_selector options for transform selectors
+- 0.0.5 - update api according postcss convention
