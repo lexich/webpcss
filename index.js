@@ -9,10 +9,17 @@
 
 var postcss = require("postcss");
 
+
+var rxHtml = /^html[_\.#\[]{1}/;
 var DEFAULTS = {
   baseClass: ".webp",
   replace_from: /\.(png|jpg|jpeg)/g,
-  replace_to: ".webp"
+  replace_to: ".webp",
+  process_selector: function(selector, baseClass){
+    return rxHtml.test(selector) ? (
+      selector.replace("html", "html" + baseClass)
+    ) : baseClass + " " + selector;
+  }
 };
 
 function Webpcss(opts){
@@ -34,7 +41,7 @@ Webpcss.prototype.postcss = function (css){
     if(decl.prop.indexOf("background") === 0 && decl.value.indexOf("url") >= 0 ){
       var selector = "";
       decl.parent.selectors.forEach(function(sel){
-        selector += options.baseClass + " " + sel;
+        selector += options.process_selector(sel, options.baseClass);
       });
       var rx = options.replace_from instanceof RegExp ? options.replace_from : new RegExp(rx, "g");
       var value = decl.value.replace(rx, options.replace_to);

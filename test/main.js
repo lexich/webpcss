@@ -12,6 +12,16 @@ describe("webpcss", function(){
     webpcss.transform(input).should.be.equal(input);
   });
 
+  it("html tag", function(){
+    var input = "html.test { background: url('test.png'); }";
+    var output = input + "html.webp.test { background-image: url('test.webp'); }";
+    webpcss.transform(input).should.be.equal(output);
+  });
+  it(".html classname", function(){
+    var input = ".html.test { background: url('test.png'); }";
+    var output = input + ".webp .html.test { background-image: url('test.webp'); }";
+    webpcss.transform(input).should.be.equal(output);
+  });
   it("default options background-image with url", function(){
     var input = ".test { background-image: url(test.jpg); }";
     var output = input + ".webp .test { background-image: url(test.webp); }";
