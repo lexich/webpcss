@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/lexich/webpcss.svg)](https://travis-ci.org/lexich/webpcss)
 [![NPM version](https://badge.fury.io/js/webpcss.svg)](http://badge.fury.io/js/webpcss)
+[![Coverage Status](https://coveralls.io/repos/lexich/webpcss/badge.png)](https://coveralls.io/r/lexich/webpcss)
 ### About
 [PostCSS](https://github.com/postcss/postcss) processor to add links to WebP images for browsers that support it.
 
