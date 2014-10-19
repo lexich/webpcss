@@ -4,9 +4,12 @@
 var fs = require("fs"),
     should = require("should"),
     postcss = require("postcss"),
-    webpcss = require("../");
+    webpcss = require("../"),
+    base64stub = require("./fixtures/base64");
 
 describe("webpcss", function(){
+
+
   it("not modify sample", function(){
     var input = ".test { backround: red; }";
     webpcss.transform(input).should.be.equal(input);
@@ -48,7 +51,7 @@ describe("webpcss", function(){
     webpcss.transform(input).should.be.equal(output);
   });
   it("default options multiple mixed clasess", function(){
-    var input = ".test1{ background: url(\"test1.jpeg\");}" + 
+    var input = ".test1{ background: url(\"test1.jpeg\");}" +
         ".test2{ background-image: url(\'test2.png\');}";
     var output = input + ".webp .test1{ background-image: url(\"test1.webp\");}" +
       ".webp .test2{ background-image: url(\'test2.webp\');}";
@@ -59,7 +62,7 @@ describe("webpcss", function(){
     webpcss.transform(input).should.be.equal(input);
   });
   it("default options background data uri", function(){
-    var input = ".test { background: url(data:image/gif;base64,R0lGO) no-repeat; }";
+    var input = ".test { background: url(" + base64stub.png + ") no-repeat; }";
     webpcss.transform(input).should.be.equal(input);
   });
   it("custom options baseClass", function(){
