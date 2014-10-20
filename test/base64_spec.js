@@ -1,13 +1,10 @@
 var WebpBase64 = require("../lib/WebpBase64"),
     base64stub = require("./fixtures/base64"),
     fs = require("fs"),
-    libpath = require("path"),
     should = require("should");
 
 describe("base64", function(){
   var base64 = new WebpBase64();
-  var pngbinary = fs.readFileSync(libpath.join(__dirname, "fixtures", "avatar.png" ));
-  var webp_pngbinary = fs.readFileSync(libpath.join(__dirname, "fixtures", "avatar.webp"));
 
   it("extract png", function(){
     var png = "data:image/png;base64,iVBORw";
@@ -47,7 +44,7 @@ describe("base64", function(){
   });
 
   it("test convert data", function(next){
-    base64.convert({format: "png",data: pngbinary}, function(err, data){
+    base64.convert({format: "png",data: base64stub.png_bin}, function(err, data){
       (err === null).should.be.ok;
       data.should.instanceof(Buffer);
       next();
