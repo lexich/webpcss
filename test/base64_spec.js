@@ -24,10 +24,21 @@ describe("base64", function(){
   });
 
   it("extract breaking data", function(){
-    base64.extract("data:_image/png;base64,iVBORw").should.be.instanceof(Array).and.have.lengthOf(0);
-    base64.extract("data_:image/png;base64,iVBORw").should.be.instanceof(Array).and.have.lengthOf(0);
-    base64.extract("data:image/pngbase64,iVBORw").should.be.instanceof(Array).and.have.lengthOf(0);
-    base64.extract("data:image/png;base64iVBORw").should.be.instanceof(Array).and.have.lengthOf(0);
+    [{format: "url", data:"data:_image/png;base64,iVBORw"}].should.eql(
+      base64.extract("data:_image/png;base64,iVBORw")
+    );
+
+    [{format: "url", data:"data_:image/png;base64,iVBORw"}].should.eql(
+      base64.extract("data_:image/png;base64,iVBORw")
+    );
+
+    [{format: "url", data:"data:image/pngbase64,iVBORw"}].should.eql(
+      base64.extract("data:image/pngbase64,iVBORw")
+    );
+
+    [{format: "url", data:"data:image/png;base64iVBORw"}].should.eql(
+      base64.extract("data:image/png;base64iVBORw")
+    );
   });
 
   xit("extract webp data", function(finish){
