@@ -68,6 +68,23 @@ describe("urldata", function(){
       urldata("url(" + png + "), url(" + png + "a)")
     );
   });
+  it("check empty", function(){
+    [""].should.eql(
+      urldata("url()")
+    );
+    [""].should.eql(
+      urldata("url(  )")
+    );
+    [""].should.eql(
+      urldata("url(\"\")")
+    );
+    [""].should.eql(
+      urldata("url(\'\')")
+    );
+    ["", "", ""].should.eql(
+      urldata("url(), url(\'\'), url(\"\")")
+    )
+  });
 });
 
 
