@@ -6,6 +6,12 @@ var WebpBase64 = require("../lib/WebpBase64"),
 describe("base64", function(){
   var base64 = new WebpBase64();
 
+  it("test base64 data", function(){
+    new Buffer(base64stub.png_base64, "base64").toString().should.eql(
+      base64stub.png_bin.toString()
+    )
+  });
+
   it("extract png", function(){
     var png = "data:image/png;base64,iVBORw";
     var url_png = "url(" + png + ")";
@@ -16,6 +22,10 @@ describe("base64", function(){
     res = base64.extract(url_png, true);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
     [{format: "png",data: "iVBORw"}].should.eql(res)
+
+    res = base64.extract(base64stub.png_uri);
+    res.should.be.instanceof(Array).and.have.lengthOf(1);
+    [{format: "png",data: base64stub.png_base64}].should.eql(res);
   });
 
   it("extract multiple png", function(){
@@ -45,10 +55,25 @@ describe("base64", function(){
 
   it("test convert data", function(next){
     base64.convert({format: "png",data: base64stub.png_bin}, function(err, data){
-      (err === null).should.be.ok;
+      if(err === null){
+        (err === null).should.be.ok;
+      } else {
+        err.should.be.eql("");
+      }
       data.should.instanceof(Buffer);
       next();
     });
     (true).should.be.ok;
+  });
+  xit("test webp", function(next){
+    base64.webp("url(" + base64stub.png_uri + ")", true, function(err, data){
+      if(err === null){
+        (err === null).should.be.ok;
+      } else {
+        err.should.be.eql("");
+      }
+      data.should.instanceof(Buffer);
+      next();
+    });
   });
 });
