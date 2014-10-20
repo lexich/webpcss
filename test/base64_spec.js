@@ -26,6 +26,10 @@ describe("base64", function(){
     res = base64.extract(base64stub.png_uri);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
     [{format: "png",data: base64stub.png_base64}].should.eql(res);
+
+    res = base64.extract(base64stub.png_css, true);
+    res.should.be.instanceof(Array).and.have.lengthOf(1);
+    [{format: "png",data: base64stub.png_base64}].should.eql(res);
   });
 
   it("extract multiple png", function(){
