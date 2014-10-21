@@ -3,14 +3,6 @@ var WebpBase64 = require("../lib/WebpBase64"),
     fs = require("fs"),
     should = require("should");
 
-function notnull(item){
-  if(item === null){
-    (item === null).should.be.ok;
-  } else {
-    item.should.be.eql("");
-  }
-}
-
 describe("base64", function(){
   var base64 = new WebpBase64();
 
@@ -65,20 +57,11 @@ describe("base64", function(){
     );
   });
 
-  it("test convert data", function(next){
-    base64.convert({format: "png",data: base64stub.png_bin}, function(err, data){
-      notnull(err);
-      data.should.instanceof(Buffer);
-      next();
-    });
-    (true).should.be.ok;
-  });
-  it("test webp", function(next){
-    base64.webp(base64stub.png_css, true, function(err, data){
-      notnull(err);
-      data.should.instanceof(Array).and.lengthOf(1);
-      data[0].should.instanceof(Buffer);
-      next();
-    });
+  it("test convert data", function(){
+    var file = base64.convert({format: "png", data: base64stub.png_bin});
+    if(file===null){ (false).should.be.ok; }
+    file.code.should.eql(0);
+    file.stderr.should.eql("");
+    (file.stdout.length > 0).should.be.ok;
   });
 });
