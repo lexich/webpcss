@@ -68,7 +68,7 @@ describe("base64", function(){
   });
   //problem with cwebp
   xit("test convert data with cwebp", function(){
-    var file = base64.convert({format: "png", data: base64stub.png_bin}, "cwebp");
+    var file = base64.convert({format: "png", data: base64stub.png_bin}, {bin: "cwebp"});
     if(file===null){ (false).should.be.ok; }
     file.code.should.eql(0);
     file.stderr.should.eql("");
