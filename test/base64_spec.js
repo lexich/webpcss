@@ -57,8 +57,16 @@ describe("base64", function(){
     );
   });
 
-  it("test convert data", function(){
+  it("test convert data with imagemagic", function(){
     var file = base64.convert({format: "png", data: base64stub.png_bin});
+    if(file===null){ (false).should.be.ok; }
+    file.code.should.eql(0);
+    file.stderr.should.eql("");
+    (file.stdout.length > 0).should.be.ok;
+  });
+  //problem with cwebp
+  xit("test convert data with cwebp", function(){
+    var file = base64.convert({format: "png", data: base64stub.png_bin}, "cwebp");
     if(file===null){ (false).should.be.ok; }
     file.code.should.eql(0);
     file.stderr.should.eql("");
