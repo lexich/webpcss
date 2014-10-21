@@ -19,19 +19,19 @@ describe("base64", function(){
     var url_png = "url(" + png + ")";
     var res = base64.extract(png);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{format: "image/png",data: "iVBORw"}].should.eql(res);
+    [{mimetype: "image/png",data: "iVBORw"}].should.eql(res);
 
     res = base64.extract(url_png, true);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{format: "image/png",data: "iVBORw"}].should.eql(res);
+    [{mimetype: "image/png",data: "iVBORw"}].should.eql(res);
 
     res = base64.extract(base64stub.png_uri);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{format: "image/png",data: base64stub.png_base64}].should.eql(res);
+    [{mimetype: "image/png",data: base64stub.png_base64}].should.eql(res);
 
     res = base64.extract(base64stub.png_css, true);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{format: "image/png",data: base64stub.png_base64}].should.eql(res);
+    [{mimetype: "image/png",data: base64stub.png_base64}].should.eql(res);
   });
 
   it("extract multiple png", function(){
@@ -42,25 +42,25 @@ describe("base64", function(){
   });
 
   it("extract breaking data", function(){
-    [{format: "_image/png", data:"iVBORw"}].should.eql(
+    [{mimetype: "_image/png", data:"iVBORw"}].should.eql(
       base64.extract("data:_image/png;base64,iVBORw")
     );
 
-    [{format: "url", data:"data_:image/png;base64,iVBORw"}].should.eql(
+    [{mimetype: "url", data:"data_:image/png;base64,iVBORw"}].should.eql(
       base64.extract("data_:image/png;base64,iVBORw")
     );
 
-    [{format: "url", data:"data:image/pngbase64,iVBORw"}].should.eql(
+    [{mimetype: "url", data:"data:image/pngbase64,iVBORw"}].should.eql(
       base64.extract("data:image/pngbase64,iVBORw")
     );
 
-    [{format: "url", data:"data:image/png;base64iVBORw"}].should.eql(
+    [{mimetype: "url", data:"data:image/png;base64iVBORw"}].should.eql(
       base64.extract("data:image/png;base64iVBORw")
     );
   });
 
   it("test convert data with imagemagic", function(){
-    var file = base64.convert({format: "png", data: base64stub.png_bin});
+    var file = base64.convert({mimetype: "png", data: base64stub.png_bin});
     if(file===null){ (false).should.be.ok; }
     file.code.should.eql(0);
     file.stderr.should.eql("");
@@ -68,7 +68,7 @@ describe("base64", function(){
   });
   //problem with cwebp
   xit("test convert data with cwebp", function(){
-    var file = base64.convert({format: "png", data: base64stub.png_bin}, {bin: "cwebp"});
+    var file = base64.convert({mimetype: "png", data: base64stub.png_bin}, {bin: "cwebp"});
     if(file===null){ (false).should.be.ok; }
     file.code.should.eql(0);
     file.stderr.should.eql("");
