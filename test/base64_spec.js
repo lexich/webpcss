@@ -19,19 +19,19 @@ describe("base64", function(){
     var url_png = "url(" + png + ")";
     var res = base64.extract(png);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{format: "png",data: "iVBORw"}].should.eql(res);
+    [{format: "image/png",data: "iVBORw"}].should.eql(res);
 
     res = base64.extract(url_png, true);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{format: "png",data: "iVBORw"}].should.eql(res);
+    [{format: "image/png",data: "iVBORw"}].should.eql(res);
 
     res = base64.extract(base64stub.png_uri);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{format: "png",data: base64stub.png_base64}].should.eql(res);
+    [{format: "image/png",data: base64stub.png_base64}].should.eql(res);
 
     res = base64.extract(base64stub.png_css, true);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{format: "png",data: base64stub.png_base64}].should.eql(res);
+    [{format: "image/png",data: base64stub.png_base64}].should.eql(res);
   });
 
   it("extract multiple png", function(){
@@ -42,7 +42,7 @@ describe("base64", function(){
   });
 
   it("extract breaking data", function(){
-    [{format: "url", data:"data:_image/png;base64,iVBORw"}].should.eql(
+    [{format: "_image/png", data:"iVBORw"}].should.eql(
       base64.extract("data:_image/png;base64,iVBORw")
     );
 
