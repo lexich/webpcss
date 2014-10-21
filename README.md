@@ -94,7 +94,14 @@ To checks browser support of webp format need to use [Modernizr](http://moderniz
 Type: function(selector, baseClass)  
 modify `selector` with `baseClass`  
 
+- `bin`
+Type: String  
+Default: convert  
+path to imagemagic or cwebp image processors
+Attention!!! imagemagic must compile with webp support
+
 ### Changelog
+- future - convert inline base64 images with imagemagic or cwebp
 - 0.0.7 - fix bug with multiple selectors
 - 0.0.6 - add process_selector options for transform selectors
 - 0.0.5 - update api according postcss convention
