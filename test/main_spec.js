@@ -1,4 +1,4 @@
-/*global describe, xit*/
+/*global describe, it, xit*/
 "use strict";
 
 var fs = require("fs"),
@@ -80,7 +80,7 @@ describe("webpcss", function(){
       webpcss.transform(input)
     );
 
-    var input = ".test { background: url(test.gif), url(\"test1.jpg\"); }";
+    input = ".test { background: url(test.gif), url(\"test1.jpg\"); }";
     (input + ".webp .test { background-image: url(test.gif),url(test1.webp); }").should.be.equal(
       webpcss.transform(input)
     );

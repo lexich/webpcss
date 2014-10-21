@@ -83,7 +83,7 @@ describe("urldata", function(){
     );
     ["", "", ""].should.eql(
       urldata("url(), url(\'\'), url(\"\")")
-    )
+    );
   });
 });
 

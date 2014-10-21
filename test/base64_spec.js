@@ -1,3 +1,5 @@
+/*global describe, it, xit*/
+/* jshint expr: true */
 var WebpBase64 = require("../lib/WebpBase64"),
     base64stub = require("./fixtures/base64"),
     fs = require("fs"),
@@ -9,7 +11,7 @@ describe("base64", function(){
   it("test base64 data", function(){
     new Buffer(base64stub.png_base64, "base64").toString().should.eql(
       base64stub.png_bin.toString()
-    )
+    );
   });
 
   it("extract png", function(){
@@ -17,11 +19,11 @@ describe("base64", function(){
     var url_png = "url(" + png + ")";
     var res = base64.extract(png);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{format: "png",data: "iVBORw"}].should.eql(res)
+    [{format: "png",data: "iVBORw"}].should.eql(res);
 
     res = base64.extract(url_png, true);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{format: "png",data: "iVBORw"}].should.eql(res)
+    [{format: "png",data: "iVBORw"}].should.eql(res);
 
     res = base64.extract(base64stub.png_uri);
     res.should.be.instanceof(Array).and.have.lengthOf(1);
@@ -35,7 +37,7 @@ describe("base64", function(){
   it("extract multiple png", function(){
     var png = "data:image/png;base64,iVBORw";
     var url_png2 = "url(" + png + "), url(" + png + ")";
-    res = base64.extract(url_png2, true);
+    var res = base64.extract(url_png2, true);
     res.should.be.ok;
   });
 
