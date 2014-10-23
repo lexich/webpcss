@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "postcss": "^0.3.5"
+    "postcss": "2.2.5"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
