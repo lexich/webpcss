@@ -110,7 +110,27 @@ describe("webpcss", function(){
       webpcss.transform(input, {replace_to: ".other"})
     );
   });
-  it("check postcss processor api", function(){
+  it("check with @media-query", function(){
+    var input = "@media all and (min-width:100px){ .test { background-image: url(test.jpg); } }";
+    var output = input + "@media all and (min-width:100px){ .webp .test { background-image: url(test.webp); } }";
+    output.should.be.eql(webpcss.transform(input));
+  });
+  it("check with multiple @media-query", function(){
+    var input = "@media all and (max-width:200px){ @media all and (min-width:100px){ .test { background-image: url(test.jpg); } } }";
+    var output = input + "@media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test { background-image: url(test.webp); } } }";
+    output.should.be.eql(webpcss.transform(input));
+  });
+  it("check with multiple @media-query with other rule and decls", function(){
+    var input = "@media all and (max-width:200px){" +
+                " .garbage{ color: blue; } " +
+                "@media all and (min-width:100px){" +
+                " .test { " +
+                "background-image: url(test.jpg); color: red; " +
+                "} } }";
+    var output = input + "@media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test { background-image: url(test.webp); } } }";
+    output.should.be.eql(webpcss.transform(input));
+  });
+  xit("check postcss processor api", function(){
     var input = ".test { background-image: url(test.jpg); }";
     (input + ".webp .test { background-image: url(test.webp); }").should.be.equal(
       postcss(webpcss.postcss).process(input).css
