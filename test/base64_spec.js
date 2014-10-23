@@ -59,7 +59,7 @@ describe("base64", function(){
     );
   });
 
-  it("test convert data with imagemagic", function(){
+  xit("test convert data with imagemagic", function(){
     var file = base64.convert({mimetype: "png", data: base64stub.png_bin});
     if(file===null){ (false).should.be.ok; }
     file.code.should.eql(0);

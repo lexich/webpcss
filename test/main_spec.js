@@ -116,7 +116,7 @@ describe("webpcss", function(){
       postcss(webpcss.postcss).process(input).css
     );
   });
-  it("check convert base64 webp options background data uri", function(){
+  xit("check convert base64 webp options background data uri", function(){
     var input = ".test { background: " + base64stub.png_css + " no-repeat; }";
     var res = webpcss.transform(input);
     res.should.include("data:image/png;base64,");
