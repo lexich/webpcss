@@ -23,10 +23,10 @@
     "postcss": "^0.3.5"
   },
   "devDependencies": {
-    "coveralls": "*",
-    "istanbul": "*",
-    "mocha": "*",
-    "mocha-lcov-reporter": "*",
-    "should": "~2.1.0"
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.2",
+    "mocha": "^2.0.0",
+    "mocha-lcov-reporter": "0.0.1",
+    "should": "^4.1.0"
   }
 }
