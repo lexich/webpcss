@@ -109,3 +109,7 @@ Attention!!! imagemagic must compile with webp support
 - 0.0.7 - fix bug with multiple selectors
 - 0.0.6 - add process_selector options for transform selectors
 - 0.0.5 - update api according postcss convention
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/lexich/webpcss/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
