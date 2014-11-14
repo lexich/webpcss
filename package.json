@@ -20,7 +20,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "postcss": "3.0.1"
+    "postcss": "3.0.1",
+    "urldata": "0.0.1"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
