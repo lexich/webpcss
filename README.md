@@ -105,6 +105,8 @@ Attention!!! imagemagic must compile with webp support
 
 ### Changelog
 - future - convert inline base64 images with imagemagic or cwebp
+- 0.0.11 - add support of border-image, update deps
+- 0.0.10 - update deps
 - 0.0.9 - update postcss to 2.2.6
 - 0.0.8 - fix bug with using @media-queryes and @support statement
 - 0.0.7 - fix bug with multiple selectors
