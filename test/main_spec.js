@@ -130,19 +130,19 @@ describe("webpcss", function(){
     var output = input + "@media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test { background-image: url(test.webp); } } }";
     output.should.be.eql(webpcss.transform(input));
   });
-  xit("check postcss processor api", function(){
-    var input = ".test { background-image: url(test.jpg); }";
-    (input + ".webp .test { background-image: url(test.webp); }").should.be.equal(
-      postcss(webpcss.postcss).process(input).css
-    );
-  });
-  xit("check convert base64 webp options background data uri", function(){
-    var input = ".test { background: " + base64stub.png_css + " no-repeat; }";
-    var res = webpcss.transform(input);
-    res.should.include("data:image/png;base64,");
-    res.should.include(".webp");
-    res.should.include("data:image/webp;base64,");
-  });
+  //xit("check postcss processor api", function(){
+  //  var input = ".test { background-image: url(test.jpg); }";
+  //  (input + ".webp .test { background-image: url(test.webp); }").should.be.equal(
+  //    postcss(webpcss.postcss).process(input).css
+  //  );
+  //});
+  //xit("check convert base64 webp options background data uri", function(){
+  //  var input = ".test { background: " + base64stub.png_css + " no-repeat; }";
+  //  var res = webpcss.transform(input);
+  //  res.should.include("data:image/png;base64,");
+  //  res.should.include(".webp");
+  //  res.should.include("data:image/webp;base64,");
+  //});
 
 });
 
