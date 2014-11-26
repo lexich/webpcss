@@ -22,6 +22,12 @@ describe("webpcss", function(){
       webpcss.transform(input)
     );
   });
+  it("border-radius css property", function(){
+    var input = ".test { border-image: url('test.png'); }";
+    (input + ".webp .test { border-image: url(test.webp); }").should.be.eql(
+      webpcss.transform(input)
+    );
+  });
   it(".html classname", function(){
     var input = ".html.test { background: url('test.png'); }";
     (input + ".webp .html.test { background-image: url(test.webp); }").should.be.eql(
