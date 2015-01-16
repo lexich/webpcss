@@ -18,54 +18,54 @@ describe("webpcss", function(){
   });
   it("html tag", function(){
     var input = "html.test { background: url('test.png'); }";
-    (input + "html.webp.test { background-image: url(test.webp); }").should.be.eql(
+    (input + "\nhtml.webp.test { background-image: url(test.webp); }").should.be.eql(
       webpcss.transform(input)
     );
   });
   it("border-radius css property", function(){
     var input = ".test { border-image: url('test.png'); }";
-    (input + ".webp .test { border-image: url(test.webp); }").should.be.eql(
+    (input + "\n.webp .test { border-image: url(test.webp); }").should.be.eql(
       webpcss.transform(input)
     );
   });
   it(".html classname", function(){
     var input = ".html.test { background: url('test.png'); }";
-    (input + ".webp .html.test { background-image: url(test.webp); }").should.be.eql(
+    (input + "\n.webp .html.test { background-image: url(test.webp); }").should.be.eql(
       webpcss.transform(input)
     );
   });
 
   it("multiple selectors", function(){
     var input = ".test1, .test2 { background: url('test.png'); }";
-    (input + ".webp .test1, .webp .test2 { background-image: url(test.webp); }").should.be.equal(
+    (input + "\n.webp .test1, .webp .test2 { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input)
     );
   });
 
-  it("default options background-image wxith url", function(){
+  it("default options background-image with url", function(){
     var input = ".test { background-image: url(test.jpg); }";
-    (input + ".webp .test { background-image: url(test.webp); }").should.be.equal(
+    (input + "\n.webp .test { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input)
     );
   });
 
-  it("default options background wxith url", function(){
+  it("default options background with url", function(){
     var input = ".test { background: url(test.jpeg); }";
-    (input + ".webp .test { background-image: url(test.webp); }").should.be.equal(
+    (input + "\n.webp .test { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input)
     );
   });
 
-  it("default options background wxith url and params", function(){
+  it("default options background with url and params", function(){
     var input = ".test { background: transparent url(test.png) no-repeat; }";
-    (input + ".webp .test { background-image: url(test.webp); }").should.be.equal(
+    (input + "\n.webp .test { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input)
     );
   });
 
   it("default options background multiple urls", function(){
     var input = ".img_play_photo_multiple{ background: url(number.png) 600px 10px no-repeat,\nurl(\"thingy.png\") 10px 10px no-repeat,\nurl('Paper-4.png');\n}";
-    var output = input + ".webp .img_play_photo_multiple{ background-image: url(number.webp),url(thingy.webp),url(Paper-4.webp);\n}";
+    var output = input + "\n.webp .img_play_photo_multiple{ background-image: url(number.webp),url(thingy.webp),url(Paper-4.webp);\n}";
     output.should.be.equal(
       webpcss.transform(input)
     );
@@ -80,14 +80,14 @@ describe("webpcss", function(){
       webpcss.transform(input)
     );
   });
-  it("default options background wxith gif", function(){
+  it("default options background with gif", function(){
     var input = ".test { background: url(test.gif); }";
     input.should.be.equal(
       webpcss.transform(input)
     );
 
     input = ".test { background: url(test.gif), url(\"test1.jpg\"); }";
-    (input + ".webp .test { background-image: url(test.gif),url(test1.webp); }").should.be.equal(
+    (input + "\n.webp .test { background-image: url(test.gif),url(test1.webp); }").should.be.equal(
       webpcss.transform(input)
     );
 
@@ -100,30 +100,30 @@ describe("webpcss", function(){
   });
   it("custom options baseClass", function(){
     var input = ".test { background-image: url(test.png); }";
-    (input + ".webp1 .test { background-image: url(test.webp); }").should.be.equal(
+    (input + "\n.webp1 .test { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input, {baseClass: ".webp1"})
     );
   });
-  it("custom options replace_from background wxith gif", function(){
+  it("custom options replace_from background with gif", function(){
     var input = ".test { background: url(test.gif); }";
-    (input + ".webp .test { background-image: url(test.webp); }").should.be.equal(
+    (input + "\n.webp .test { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input, {replace_from: /\.gif/g})
     );
   });
-  it("custom options replace_to background-image wxith url", function(){
+  it("custom options replace_to background-image with url", function(){
     var input = ".test { background-image: url(test.jpg); }";
-    (input + ".webp .test { background-image: url(test.other); }").should.be.equal(
+    (input + "\n.webp .test { background-image: url(test.other); }").should.be.equal(
       webpcss.transform(input, {replace_to: ".other"})
     );
   });
   it("check with @media-query", function(){
     var input = "@media all and (min-width:100px){ .test { background-image: url(test.jpg); } }";
-    var output = input + "@media all and (min-width:100px){ .webp .test { background-image: url(test.webp); } }";
+    var output = input + " @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } }";
     output.should.be.eql(webpcss.transform(input));
   });
   it("check with multiple @media-query", function(){
     var input = "@media all and (max-width:200px){ @media all and (min-width:100px){ .test { background-image: url(test.jpg); } } }";
-    var output = input + "@media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test { background-image: url(test.webp); } } }";
+    var output = input + " @media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } } }";
     output.should.be.eql(webpcss.transform(input));
   });
   it("check with multiple @media-query with other rule and decls", function(){
@@ -133,7 +133,7 @@ describe("webpcss", function(){
                 " .test { " +
                 "background-image: url(test.jpg); color: red; " +
                 "} } }";
-    var output = input + "@media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test { background-image: url(test.webp); } } }";
+    var output = input + " @media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } } }";
     output.should.be.eql(webpcss.transform(input));
   });
   //xit("check postcss processor api", function(){

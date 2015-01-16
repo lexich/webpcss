@@ -1,6 +1,6 @@
 {
   "name": "webpcss",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "postcss processor for prepare css to use webp images",
   "main": "index.js",
   "repository": "lexich/webpcss",
@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "postcss": "3.0.4",
+    "postcss": "4.0.1",
     "urldata": "0.0.1"
   },
   "devDependencies": {
