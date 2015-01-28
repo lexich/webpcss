@@ -1,5 +1,5 @@
 /*
- * grunt-webpcss
+ * webpcss
  * https://github.com/lexich/webpcss
  *
  * Copyright (c) 2014 Efremov Alexey
@@ -7,27 +7,8 @@
  */
 'use strict';
 
-var Webpcss = require("./lib/Webpcss");
+require('6to5/register')({
+  only: /lib/
+});
 
-var defaultWebpcss = null;
-
-module.exports = function(options, data){
-  var pt = !options ? (
-    defaultWebpcss || (defaultWebpcss = new Webpcss())
-  ) : new Webpcss(options);
-  return data ? pt : pt.transform(data);
-};
-
-module.exports.Webpcss = Webpcss;
-
-module.exports.postcss = function(css){
-  return (defaultWebpcss || (defaultWebpcss = new Webpcss())).postcss(css);
-};
-
-module.exports.transform = function(data, options){
-  if(!options){
-    return (defaultWebpcss || (defaultWebpcss = new Webpcss())).transform(data);
-  } else {
-    return (new Webpcss(options)).transform(data);
-  }
-};
+module.exports = require("./lib/main.js");

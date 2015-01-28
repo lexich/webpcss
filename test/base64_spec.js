@@ -1,6 +1,6 @@
 /*global describe, it, xit*/
 /* jshint expr: true */
-var WebpBase64 = require("../lib/WebpBase64"),
+var WebpBase64 = require("..").WebpBase64,
     base64stub = require("./fixtures/base64"),
     fs = require("fs"),
     should = require("should");

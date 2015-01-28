@@ -20,6 +20,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "6to5": "^3.0.5",
     "postcss": "4.0.2",
     "urldata": "0.0.1"
   },
