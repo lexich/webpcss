@@ -7,22 +7,20 @@
  */
 "use strict";
 
-var Webpcss = require("./lib/Webpcss");
+var Webpcss = require("./lib/Webpcss"),
+    postcss = require("postcss");
 
 var defaultWebpcss = null;
 
-module.exports = function(options, data) {
-  var pt = !options ? (
-    defaultWebpcss || (defaultWebpcss = new Webpcss())
-  ) : new Webpcss(options);
-  return data ? pt : pt.transform(data);
-};
+module.exports = postcss.plugin("webpcss", function(options) {
+  var pt = options ? new Webpcss(options) : (
+    defaultWebpcss || (defaultWebpcss = new Webpcss()));
+  return function(css) {
+    return pt.postcss(css);
+  };
+});
 
 module.exports.Webpcss = Webpcss;
-
-module.exports.postcss = function(css) {
-  return (defaultWebpcss || (defaultWebpcss = new Webpcss())).postcss(css);
-};
 
 module.exports.transform = function(data, options) {
   if (!options) {
