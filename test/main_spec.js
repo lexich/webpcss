@@ -1,69 +1,73 @@
-/*global describe, it, xit*/
+/*global describe, it*/
 "use strict";
 
-var fs = require("fs"),
-    should = require("should"),
-    postcss = require("postcss"),
-    webpcss = require("../"),
-    base64stub = require("./fixtures/base64");
+var webpcss = require("../"),
+    base64stub = require("./fixtures/base64"),
+    should = require("should");
 
-describe("webpcss", function(){
+//fs = require("fs"),
+//postcss = require("postcss");
 
+describe("webpcss", function() {
+  should;
 
-  it("not modify sample", function(){
+  it("not modify sample", function() {
     var input = ".test { backround: red; }";
     input.should.be.equal(
       webpcss.transform(input)
     );
   });
-  it("html tag", function(){
+
+  it("html tag", function() {
     var input = "html.test { background: url('test.png'); }";
     (input + "\nhtml.webp.test { background-image: url(test.webp); }").should.be.eql(
       webpcss.transform(input)
     );
   });
-  it("border-radius css property", function(){
+
+  it("border-radius css property", function() {
     var input = ".test { border-image: url('test.png'); }";
     (input + "\n.webp .test { border-image: url(test.webp); }").should.be.eql(
       webpcss.transform(input)
     );
   });
-  it(".html classname", function(){
+
+  it(".html classname", function() {
     var input = ".html.test { background: url('test.png'); }";
     (input + "\n.webp .html.test { background-image: url(test.webp); }").should.be.eql(
       webpcss.transform(input)
     );
   });
 
-  it("multiple selectors", function(){
+  it("multiple selectors", function() {
     var input = ".test1, .test2 { background: url('test.png'); }";
     (input + "\n.webp .test1, .webp .test2 { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input)
     );
   });
 
-  it("default options background-image with url", function(){
+  it("default options background-image with url", function() {
     var input = ".test { background-image: url(test.jpg); }";
     (input + "\n.webp .test { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input)
     );
   });
 
-  it("default options background with url", function(){
+  it("default options background with url", function() {
     var input = ".test { background: url(test.jpeg); }";
     (input + "\n.webp .test { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input)
     );
   });
 
-  it("default options background with url and params", function(){
+  it("default options background with url and params", function() {
     var input = ".test { background: transparent url(test.png) no-repeat; }";
     (input + "\n.webp .test { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input)
     );
   });
 
-  it("default options background multiple urls", function(){
+  it("default options background multiple urls", function() {
     var input = ".img_play_photo_multiple{ background: url(number.png) 600px 10px no-repeat,\nurl(\"thingy.png\") 10px 10px no-repeat,\nurl('Paper-4.png');\n}";
     var output = input + "\n.webp .img_play_photo_multiple{ background-image: url(number.webp),url(thingy.webp),url(Paper-4.webp);\n}";
     output.should.be.equal(
@@ -71,7 +75,7 @@ describe("webpcss", function(){
     );
   });
 
-  it("default options multiple mixed clasess", function(){
+  it("default options multiple mixed clasess", function() {
     var input = ".test1{ background: url(\"test1.jpeg\");}" +
         ".test2{ background-image: url(\'test2.png\');}";
     var output = input + ".webp .test1{ background-image: url(test1.webp);}" +
@@ -80,7 +84,8 @@ describe("webpcss", function(){
       webpcss.transform(input)
     );
   });
-  it("default options background with gif", function(){
+
+  it("default options background with gif", function() {
     var input = ".test { background: url(test.gif); }";
     input.should.be.equal(
       webpcss.transform(input)
@@ -90,43 +95,49 @@ describe("webpcss", function(){
     (input + "\n.webp .test { background-image: url(test.gif),url(test1.webp); }").should.be.equal(
       webpcss.transform(input)
     );
-
   });
-  it("default options background data uri", function(){
+
+  it("default options background data uri", function() {
     var input = ".test { background: url(" + base64stub.png + ") no-repeat; }";
     input.should.be.equal(
       webpcss.transform(input)
     );
   });
-  it("custom options baseClass", function(){
+
+  it("custom options baseClass", function() {
     var input = ".test { background-image: url(test.png); }";
     (input + "\n.webp1 .test { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input, {baseClass: ".webp1"})
     );
   });
-  it("custom options replace_from background with gif", function(){
+
+  it("custom options replace_from background with gif", function() {
     var input = ".test { background: url(test.gif); }";
     (input + "\n.webp .test { background-image: url(test.webp); }").should.be.equal(
       webpcss.transform(input, {replace_from: /\.gif/g})
     );
   });
-  it("custom options replace_to background-image with url", function(){
+
+  it("custom options replace_to background-image with url", function() {
     var input = ".test { background-image: url(test.jpg); }";
     (input + "\n.webp .test { background-image: url(test.other); }").should.be.equal(
       webpcss.transform(input, {replace_to: ".other"})
     );
   });
-  it("check with @media-query", function(){
+
+  it("check with @media-query", function() {
     var input = "@media all and (min-width:100px){ .test { background-image: url(test.jpg); } }";
     var output = input + " @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } }";
     output.should.be.eql(webpcss.transform(input));
   });
-  it("check with multiple @media-query", function(){
+
+  it("check with multiple @media-query", function() {
     var input = "@media all and (max-width:200px){ @media all and (min-width:100px){ .test { background-image: url(test.jpg); } } }";
     var output = input + " @media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } } }";
     output.should.be.eql(webpcss.transform(input));
   });
-  it("check with multiple @media-query with other rule and decls", function(){
+
+  it("check with multiple @media-query with other rule and decls", function() {
     var input = "@media all and (max-width:200px){" +
                 " .garbage{ color: blue; } " +
                 "@media all and (min-width:100px){" +
@@ -136,6 +147,7 @@ describe("webpcss", function(){
     var output = input + " @media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } } }";
     output.should.be.eql(webpcss.transform(input));
   });
+
   //xit("check postcss processor api", function(){
   //  var input = ".test { background-image: url(test.jpg); }";
   //  (input + ".webp .test { background-image: url(test.webp); }").should.be.equal(
@@ -149,6 +161,5 @@ describe("webpcss", function(){
   //  res.should.include(".webp");
   //  res.should.include("data:image/webp;base64,");
   //});
-
 });
 

@@ -5,8 +5,13 @@
   "main": "index.js",
   "repository": "lexich/webpcss",
   "scripts": {
-    "test": "istanbul test _mocha --report html -- test/*.js --reporter spec",
-    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "test": "npm run jshint && npm run jscs && istanbul test _mocha --report html -- test/*.js --reporter spec",
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "jscs": "node_modules/.bin/jscs .",
+    "jshint": "node_modules/.bin/jshint --reporter node_modules/jshint-stylish/stylish.js",
+    "precommit": "npm test",
+    "prepush": "npm test",
+    "postmerge": "npm install"
   },
   "keywords": [
     "webp",
@@ -25,7 +30,11 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
+    "husky": "^0.7.0",
     "istanbul": "^0.3.13",
+    "jscs": "^1.12.0",
+    "jshint": "^2.6.3",
+    "jshint-stylish": "^1.0.1",
     "mocha": "^2.2.1",
     "mocha-lcov-reporter": "0.0.2",
     "should": "^5.2.0"
