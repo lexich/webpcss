@@ -97,14 +97,21 @@ To checks browser support of webp format need to use [Modernizr](http://moderniz
 Type: function(selector, baseClass)  
 modify `selector` with `baseClass`  
 
-- `bin` - future
-Type: String  
-Default: convert  
-path to imagemagic or cwebp image processors
-Attention!!! imagemagic must compile with webp support
+- `inline`
+Type: String
+Path to images folder 
+
+```css
+.test { background-image:url('test.png'); } // `${inline}/`test.png
+```
+after
+```css
+.test { background-image:url('test.png'); } // `${inline}/`test.png
+.webp .test { background-image: url(data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAQCdASoKAAgAAgA0JQBOgB6XKgsI3ogA/gEAtARF3E8iPiuncdF4zSgVjkZEgIatdknUme0fy3LBWFwbOjWUoaOOso78HmdNsa5gir1gmEwgAAA=); }
+```
 
 ### Changelog
-- future - convert inline base64 images with imagemagic or cwebp
+- 1.0.0 - add suport CWeb for automatic inline images in webp format
 - 0.0.11 - add support of border-image, update deps
 - 0.0.10 - update deps
 - 0.0.9 - update postcss to 2.2.6
