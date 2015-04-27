@@ -1,11 +1,8 @@
 "use strict";
-/*global describe, it*/
-/* jshint expr: true */
+/*global describe, it */
 var WebpBase64 = require("../lib/WebpBase64"),
     base64stub = require("./fixtures/base64"),
     should = require("should");
-
-//fs = require("fs"),
 
 describe("base64", function() {
   var base64 = new WebpBase64();
@@ -61,20 +58,27 @@ describe("base64", function() {
     );
   });
 
-  //xit("test convert data with imagemagic", function() {
-  //  var file = base64.convert({mimetype: "png", data: base64stub.png_bin});
-  //  if(file===null) { (false).should.be.ok; }
-  //  file.code.should.eql(0);
-  //  file.stderr.should.eql("");
-  //  (file.stdout.length > 0).should.be.ok;
-  //});
-  //
-  ////problem with cwebp
-  //xit("test convert data with cwebp", function() {
-  //  var file = base64.convert({mimetype: "png", data: base64stub.png_bin}, {bin: "cwebp"});
-  //  if(file===null) { (false).should.be.ok; }
-  //  file.code.should.eql(0);
-  //  file.stderr.should.eql("");
-  //  (file.stdout.length > 0).should.be.ok;
-  //});
+  it("test convert data with node-webp png", function() {
+    return base64.convert(base64stub.png_bin)
+      .catch(function(err) {
+        console.log(err);
+        false.should.be.ok;
+      })
+      .done(function(buffer) {
+        buffer.should.be.instanceof(Buffer);
+        buffer.should.be.eql(base64stub.webp);
+      });
+  });
+
+  it("test convert data with node-webp jpg", function() {
+    return base64.convert(base64stub.jpg_bin)
+      .catch(function(err) {
+        console.log(err);
+        false.should.be.ok;
+      })
+      .done(function(buffer) {
+        buffer.should.be.instanceof(Buffer);
+        buffer.should.be.eql(base64stub.webp_jpg_bin);
+      });
+  });
 });
