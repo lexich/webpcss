@@ -26,9 +26,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "cwebp": "^1.0.3",
-    "es6-promise": "^2.0.1",
-    "postcss": "^4.1.5",
+    "cwebp": "^1.0.4",
+    "es6-promise": "^2.1.1",
+    "postcss": "^4.1.6",
     "urldata": "0.0.1"
   },
   "devDependencies": {
@@ -36,10 +36,10 @@
     "husky": "^0.7.0",
     "istanbul": "^0.3.13",
     "jscs": "^1.12.0",
-    "jshint": "^2.6.3",
+    "jshint": "^2.7.0",
     "jshint-stylish": "^1.0.1",
-    "mocha": "^2.2.1",
+    "mocha": "^2.2.4",
     "mocha-lcov-reporter": "0.0.2",
-    "should": "^5.2.0"
+    "should": "^6.0.1"
   }
 }
