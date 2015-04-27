@@ -183,7 +183,7 @@ describe("webpcss", function() {
   it("check inline property for png source", function() {
     var input = ".test { background: url(avatar.png); }";
     var fixtures_path = libpath.join(__dirname, "fixtures");
-    return webpcss.transform(input, {inline: fixtures_path}).then(function(res) {
+    return webpcss.transform(input, {inline: true, css_root: fixtures_path}).then(function(res) {
       var css = res.css;
       css.should.match(/data:image\/webp;base64,/);
       css.should.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
@@ -193,7 +193,7 @@ describe("webpcss", function() {
   it("check inline property for jpg source", function() {
     var input = ".test { background: url(kitten.jpg); }";
     var fixtures_path = libpath.join(__dirname, "fixtures");
-    return webpcss.transform(input, {inline: fixtures_path}).then(function(res) {
+    return webpcss.transform(input, {inline: true, css_root: fixtures_path}).then(function(res) {
       var css = res.css;
       css.should.match(/data:image\/webp;base64,/);
       css.should.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
@@ -203,9 +203,39 @@ describe("webpcss", function() {
   it("check inline property for invalid path source", function() {
     var input = ".test { background: url(kitten1.jpg); }";
     var fixtures_path = libpath.join(__dirname, "fixtures");
-    return webpcss.transform(input, {inline: fixtures_path}).then(function(res) {
+    return webpcss.transform(input, {inline: true, css_root: fixtures_path}).then(function(res) {
       var css = res.css;
       css.should.eql(input);
+    });
+  });
+
+  it("check inline property for jpg source with relative path", function() {
+    var input = ".test { background: url(kitten.jpg); }";
+    var fixtures_path = libpath.join(__dirname, "fixtures");
+    return webpcss.transform(input, {inline: true, css_root: fixtures_path}).then(function(res) {
+      var css = res.css;
+      css.should.match(/data:image\/webp;base64,/);
+      css.should.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
+    });
+  });
+
+  it("check inline property for jpg source with relative path", function() {
+    var input = ".test { background: url(../fixtures/kitten.jpg); }";
+    var fixtures_path = libpath.join(__dirname, "css");
+    return webpcss.transform(input, {inline: true, css_root: fixtures_path}).then(function(res) {
+      var css = res.css;
+      css.should.match(/data:image\/webp;base64,/);
+      css.should.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
+    });
+  });
+
+  it("check inline property for jpg source with relative path", function() {
+    var input = ".test { background: url(/kitten.jpg); }";
+    var fixtures_path = libpath.join(__dirname, "fixtures");
+    return webpcss.transform(input, {inline: true, image_root: fixtures_path}).then(function(res) {
+      var css = res.css;
+      css.should.match(/data:image\/webp;base64,/);
+      css.should.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
     });
   });
 });
