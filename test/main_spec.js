@@ -162,15 +162,15 @@ describe("webpcss", function() {
   //  );
   //});
 
-  xit("check convert base64 webp options background data uri", function() {
+  it("check convert base64 webp options background data uri", function() {
     var input = ".test { background: " + base64stub.png_css + " no-repeat; }";
     return webpcss.transform(input).then(function(res) {
       var css = res.css;
       css.should.match(/data:image\/png;base64,/);
+      css.should.match(/\.test { background: url\(data:image\/png;base64,/);
 
-      //var fs = require("fs");
-      //fs.writeFileSync("test.css", css);
-      //css.should.match(/data:image\/webp;base64,/);
+      css.should.match(/data:image\/webp;base64,/);
+      css.should.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
     });
   });
 });
