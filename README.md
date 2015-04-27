@@ -128,6 +128,11 @@ Type: String
 Default: ""    
 This property needs to resolve relative paths `url(../images/1.png)` `url(image.png` while inlining images.
 
+- `cwebp_configurator`
+Type: function(encoder){}
+Default: null
+You can configure cwebp encoder according [cwebp documentation](https://github.com/Intervox/node-webp#specifying-conversion-options)
+
 ### Changelog
 - 1.0.0 - add suport CWeb for automatic inline images in webp format
 - 0.0.11 - add support of border-image, update deps
