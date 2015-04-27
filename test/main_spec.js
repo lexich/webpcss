@@ -155,19 +155,24 @@ describe("webpcss", function() {
     });
   });
 
-  //xit("check postcss processor api", function(){
-  //  var input = ".test { background-image: url(test.jpg); }";
-  //  (input + ".webp .test { background-image: url(test.webp); }").should.be.equal(
-  //    postcss(webpcss.postcss).process(input).css
-  //  );
-  //});
-
-  it("check convert base64 webp options background data uri", function() {
+  it("check convert base64 png webp options background data uri", function() {
     var input = ".test { background: " + base64stub.png_css + " no-repeat; }";
     return webpcss.transform(input).then(function(res) {
       var css = res.css;
       css.should.match(/data:image\/png;base64,/);
       css.should.match(/\.test { background: url\(data:image\/png;base64,/);
+
+      css.should.match(/data:image\/webp;base64,/);
+      css.should.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
+    });
+  });
+
+  it("check convert base64 jpg webp options background data uri", function() {
+    var input = ".test { background: " + base64stub.jpg_css + " no-repeat; }";
+    return webpcss.transform(input).then(function(res) {
+      var css = res.css;
+      css.should.match(/data:image\/jpg;base64,/);
+      css.should.match(/\.test { background: url\(data:image\/jpg;base64,/);
 
       css.should.match(/data:image\/webp;base64,/);
       css.should.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
