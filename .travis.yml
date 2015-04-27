@@ -1,4 +1,7 @@
 language: node_js
+sudo: true
+before_install:
+  - curl -s https://raw.githubusercontent.com/Intervox/node-webp/latest/bin/install_webp | sudo bash
 node_js:
   - '0.10'
   - '0.12'
