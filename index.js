@@ -1,33 +1,33 @@
 /*
- * grunt-webpcss
+ * webpcss
  * https://github.com/lexich/webpcss
  *
- * Copyright (c) 2014 Efremov Alexey
+ * Copyright (c) 2015 Efremov Alexey
  * Licensed under the MIT license.
  */
-'use strict';
+"use strict";
 
-var Webpcss = require("./lib/Webpcss");
+var Webpcss = require("./lib/Webpcss"),
+    postcss = require("postcss");
 
+var Promise = global.Promise || require("es6-promise").Promise;
 var defaultWebpcss = null;
 
-module.exports = function(options, data){
-  var pt = !options ? (
-    defaultWebpcss || (defaultWebpcss = new Webpcss())
-  ) : new Webpcss(options);
-  return data ? pt : pt.transform(data);
-};
+var plugin = postcss.plugin("webpcss", function(options) {
+  var pt = options ? new Webpcss(options) : (
+    defaultWebpcss || (defaultWebpcss = new Webpcss()));
+  return function(css) {
+    return new Promise(function(resolve, reject) {
+      pt.postcss(css, function(err, data) {
+        return err ? reject(err, data) : resolve(data);
+      });
+    });
+  };
+});
 
+module.exports = plugin;
 module.exports.Webpcss = Webpcss;
 
-module.exports.postcss = function(css){
-  return (defaultWebpcss || (defaultWebpcss = new Webpcss())).postcss(css);
-};
-
-module.exports.transform = function(data, options){
-  if(!options){
-    return (defaultWebpcss || (defaultWebpcss = new Webpcss())).transform(data);
-  } else {
-    return (new Webpcss(options)).transform(data);
-  }
+module.exports.transform = function(data, options) {
+  return postcss([plugin(options)]).process(data);
 };

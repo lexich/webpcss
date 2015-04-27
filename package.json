@@ -1,12 +1,18 @@
 {
   "name": "webpcss",
-  "version": "0.0.14",
+  "version": "1.0.0",
   "description": "postcss processor for prepare css to use webp images",
   "main": "index.js",
   "repository": "lexich/webpcss",
   "scripts": {
-    "test": "istanbul test _mocha --report html -- test/*.js --reporter spec",
-    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "mocha": "istanbul test _mocha --report html -- test/*_spec.js --reporter spec",
+    "test": "npm run jshint && npm run jscs && npm run mocha",
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "jscs": "node_modules/.bin/jscs .",
+    "jshint": "node_modules/.bin/jshint --reporter node_modules/jshint-stylish/stylish.js",
+    "precommit": "npm test",
+    "prepush": "npm test",
+    "postmerge": "npm install"
   },
   "keywords": [
     "webp",
@@ -20,14 +26,20 @@
   },
   "license": "MIT",
   "dependencies": {
-    "postcss": "^4.0.3",
+    "cwebp": "^1.0.4",
+    "es6-promise": "^2.1.1",
+    "postcss": "^4.1.6",
     "urldata": "0.0.1"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
-    "istanbul": "^0.3.2",
-    "mocha": "^2.0.1",
-    "mocha-lcov-reporter": "0.0.1",
-    "should": "^4.6.2"
+    "husky": "^0.7.0",
+    "istanbul": "^0.3.13",
+    "jscs": "^1.12.0",
+    "jshint": "^2.7.0",
+    "jshint-stylish": "^1.0.1",
+    "mocha": "^2.2.4",
+    "mocha-lcov-reporter": "0.0.2",
+    "should": "^6.0.1"
   }
 }

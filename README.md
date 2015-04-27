@@ -13,6 +13,9 @@ WebP is image format that is smaller, that PNG or JPEG, but it is [supported](ht
 * [grunt-webpcss](https://github.com/lexich/grunt-webpcss)
 * [gulp-webpcss](https://github.com/lexich/gulp-webpcss)
 
+### Install
+This plugin use [cwebp](https://github.com/Intervox/node-webp) for processing images. If you want to use this functionality read [Installation Guide](https://github.com/Intervox/node-webp#installation)
+
 ### Examples
 
 Using with [gulp-postcss](https://github.com/w0rm/gulp-postcss):
@@ -69,7 +72,8 @@ icon.png icon.webp
 ### Options
 
 - `baseClass`  
-Type: String Default value: '.webp'  
+Type: String 
+Default: '.webp'  
 Class which prepend selector. For expample:
 before
 
@@ -86,25 +90,51 @@ after
 .webp class indicate webp browser support. Recommends to use [Modernizr](http://modernizr.com/)
 
 - `replace_from`  
-Type: RegExp Default value: /\.(png|jpg|jpeg)/  
+Type: RegExp 
+Default: /\.(png|jpg|jpeg)/  
 RegExp pattern for replace
 
 - `replace_to`  
-Type: String Default value: .webp  
+Type: String 
+Default: .webp  
 To checks browser support of webp format need to use [Modernizr](http://modernizr.com/) which adds `.webp` class to `body` if browser support WebP and browser will download smaller WebP image instead of bigger PNG.
 
 - `process_selector`  
 Type: function(selector, baseClass)  
 modify `selector` with `baseClass`  
 
-- `bin` - future
+- `inline`
+Type: Boolean  
+Default: false  
+Turn on inline images mode. You need setup `image_path` and `css_path` for 
+correct resolving image path.
+
+```css
+.test { background-image:url('test.png'); } // `${inline}/`test.png
+```
+after
+```css
+.test { background-image:url('test.png'); } // `${inline}/`test.png
+.webp .test { background-image: url(data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAQCdASoKAAgAAgA0JQBOgB6XKgsI3ogA/gEAtARF3E8iPiuncdF4zSgVjkZEgIatdknUme0fy3LBWFwbOjWUoaOOso78HmdNsa5gir1gmEwgAAA=); }
+```
+
+- `image_root`
 Type: String  
-Default: convert  
-path to imagemagic or cwebp image processors
-Attention!!! imagemagic must compile with webp support
+Default: ""    
+This property needs to resolve absolute paths `url(/images/1.png)` while inlining images.
+
+- `css_root`
+Type: String  
+Default: ""    
+This property needs to resolve relative paths `url(../images/1.png)` `url(image.png` while inlining images.
+
+- `cwebp_configurator`
+Type: function(encoder){}
+Default: null
+You can configure cwebp encoder according [cwebp documentation](https://github.com/Intervox/node-webp#specifying-conversion-options)
 
 ### Changelog
-- future - convert inline base64 images with imagemagic or cwebp
+- 1.0.0 - add suport CWeb for automatic inline images in webp format
 - 0.0.11 - add support of border-image, update deps
 - 0.0.10 - update deps
 - 0.0.9 - update postcss to 2.2.6
