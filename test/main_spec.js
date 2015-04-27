@@ -1,4 +1,4 @@
-/*global describe, it, xit*/
+/*global describe, it*/
 "use strict";
 
 var webpcss = require("../"),
