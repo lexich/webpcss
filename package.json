@@ -1,6 +1,6 @@
 {
   "name": "webpcss",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "postcss processor for prepare css to use webp images",
   "main": "index.js",
   "repository": "lexich/webpcss",
@@ -26,18 +26,18 @@
   },
   "license": "MIT",
   "dependencies": {
-    "cwebp": "^1.0.4",
+    "cwebp": "^1.0.5",
     "es6-promise": "^2.1.1",
-    "postcss": "^4.1.6",
+    "postcss": "^4.1.9",
     "urldata": "0.0.1"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
     "husky": "^0.7.0",
     "istanbul": "^0.3.13",
-    "jscs": "^1.12.0",
+    "jscs": "^1.13.1",
     "jshint": "^2.7.0",
-    "jshint-stylish": "^1.0.1",
+    "jshint-stylish": "^1.0.2",
     "mocha": "^2.2.4",
     "mocha-lcov-reporter": "0.0.2",
     "should": "^6.0.1"
