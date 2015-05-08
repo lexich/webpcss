@@ -2,17 +2,18 @@
   "name": "webpcss",
   "version": "1.0.1",
   "description": "postcss processor for prepare css to use webp images",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": "http://github.com/lexich/webpcss",
   "scripts": {
-    "mocha": "istanbul test _mocha --report html -- test/*_spec.js --reporter spec",
+    "mocha": "npm run compile && istanbul test _mocha --report html -- test/*_spec.js --reporter spec",
     "test": "npm run jshint && npm run jscs && npm run eslint && npm run mocha",
     "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "jshint": "node_modules/.bin/jshint --reporter node_modules/jshint-stylish/stylish.js",
     "jscs": "node_modules/.bin/jscs index.js lib test",
     "eslint": "node_modules/.bin/eslint index.js lib test",
-    "precommit": "npm test",
-    "prepush": "npm test",
+    "compile": "node_modules/.bin/babel lib --out-dir dist",
+    "precommit": "npm test && npm run compile",
+    "prepush": "npm test && npm run compile",
     "postmerge": "npm install"
   },
   "keywords": [
@@ -33,6 +34,7 @@
     "urldata": "0.0.1"
   },
   "devDependencies": {
+    "babel": "^5.2.17",
     "babel-eslint": "^3.0.1",
     "chai": "^2.3.0",
     "coveralls": "^2.11.2",

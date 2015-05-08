@@ -1,7 +1,7 @@
 /*global describe, it*/
 "use strict";
 
-var webpcss = require("../"),
+var webpcss = require("../dist"),
     base64stub = require("./fixtures/base64"),
     libpath = require("path"),
     expect = require("chai").expect;
