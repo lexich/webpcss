@@ -2,10 +2,7 @@
   "excludeFiles": [
     "node_modules/**",
     "bower_components/**",
-    "app/public/**",
-    "public/**",
-    ".vagrant",
-    "app/scripts/countries_data.js"
+    ".vagrant"
   ],
   "fileExtensions": [
     ".js"

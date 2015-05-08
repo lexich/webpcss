@@ -2,58 +2,58 @@
 /*global describe, it */
 var WebpBase64 = require("../lib/WebpBase64"),
     base64stub = require("./fixtures/base64"),
-    should = require("should");
+    expect = require("chai").expect;
 
 describe("base64", function() {
   var base64 = new WebpBase64();
-  should;
+
   it("test base64 data", function() {
-    new Buffer(base64stub.png_base64, "base64").toString().should.eql(
+    expect(new Buffer(base64stub.png_base64, "base64").toString()).to.eql(
       base64stub.png_bin.toString()
     );
   });
 
   it("extract png", function() {
     var png = "data:image/png;base64,iVBORw";
-    var url_png = "url(" + png + ")";
+    var urlPng = "url(" + png + ")";
     var res = base64.extract(png);
-    res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{mimetype: "image/png", data: "iVBORw"}].should.eql(res);
+    expect(res).to.be.instanceof(Array).and.have.lengthOf(1);
+    expect([{mimetype: "image/png", data: "iVBORw"}]).to.eql(res);
 
-    res = base64.extract(url_png, true);
-    res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{mimetype: "image/png", data: "iVBORw"}].should.eql(res);
+    res = base64.extract(urlPng, true);
+    expect(res).to.be.instanceof(Array).and.have.lengthOf(1);
+    expect([{mimetype: "image/png", data: "iVBORw"}]).to.eql(res);
 
     res = base64.extract(base64stub.png_uri);
-    res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{mimetype: "image/png", data: base64stub.png_base64}].should.eql(res);
+    expect(res).to.be.instanceof(Array).and.have.lengthOf(1);
+    expect([{mimetype: "image/png", data: base64stub.png_base64}]).to.eql(res);
 
     res = base64.extract(base64stub.png_css, true);
-    res.should.be.instanceof(Array).and.have.lengthOf(1);
-    [{mimetype: "image/png", data: base64stub.png_base64}].should.eql(res);
+    expect(res).to.be.instanceof(Array).and.have.lengthOf(1);
+    expect([{mimetype: "image/png", data: base64stub.png_base64}]).to.eql(res);
   });
 
   it("extract multiple png", function() {
     var png = "data:image/png;base64,iVBORw";
-    var url_png2 = "url(" + png + "), url(" + png + ")";
-    var res = base64.extract(url_png2, true);
-    res.should.be.ok;
+    var urlPng2 = "url(" + png + "), url(" + png + ")";
+    var res = base64.extract(urlPng2, true);
+    expect(res).to.be.ok;
   });
 
   it("extract breaking data", function() {
-    [{mimetype: "_image/png", data:"iVBORw"}].should.eql(
+    expect([{mimetype: "_image/png", data: "iVBORw"}]).to.eql(
       base64.extract("data:_image/png;base64,iVBORw")
     );
 
-    [{mimetype: "url", data:"data_:image/png;base64,iVBORw"}].should.eql(
+    expect([{mimetype: "url", data: "data_:image/png;base64,iVBORw"}]).to.eql(
       base64.extract("data_:image/png;base64,iVBORw")
     );
 
-    [{mimetype: "url", data:"data:image/pngbase64,iVBORw"}].should.eql(
+    expect([{mimetype: "url", data: "data:image/pngbase64,iVBORw"}]).to.eql(
       base64.extract("data:image/pngbase64,iVBORw")
     );
 
-    [{mimetype: "url", data:"data:image/png;base64iVBORw"}].should.eql(
+    expect([{mimetype: "url", data: "data:image/png;base64iVBORw"}]).to.eql(
       base64.extract("data:image/png;base64iVBORw")
     );
   });
@@ -61,24 +61,22 @@ describe("base64", function() {
   it("test convert data with node-webp png", function() {
     return base64.convert(base64stub.png_bin)
       .catch(function(err) {
-        console.log(err);
-        false.should.be.ok;
+        expect(err).to.not.exist;
       })
       .done(function(buffer) {
-        buffer.should.be.instanceof(Buffer);
-        buffer.should.be.eql(base64stub.webp);
+        expect(buffer).to.be.instanceof(Buffer);
+        expect(buffer).to.be.eql(base64stub.webp);
       });
   });
 
   it("test convert data with node-webp jpg", function() {
     return base64.convert(base64stub.jpg_bin)
       .catch(function(err) {
-        console.log(err);
-        false.should.be.ok;
+        expect(err).to.not.exist;
       })
       .done(function(buffer) {
-        buffer.should.be.instanceof(Buffer);
-        buffer.should.be.eql(base64stub.webp_jpg_bin);
+        expect(buffer).to.be.instanceof(Buffer);
+        expect(buffer).to.be.eql(base64stub.webp_jpg_bin);
       });
   });
 });
