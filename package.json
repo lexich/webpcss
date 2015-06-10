@@ -1,8 +1,8 @@
 {
   "name": "webpcss",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "postcss processor for prepare css to use webp images",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "repository": "http://github.com/lexich/webpcss",
   "scripts": {
     "mocha": "npm run compile && istanbul test _mocha --report html -- test/*_spec.js --reporter spec",

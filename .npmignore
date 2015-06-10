@@ -11,3 +11,4 @@ coverage/
 lib/
 node_modules/
 test/
+/index.js
