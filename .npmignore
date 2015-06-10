@@ -8,7 +8,6 @@
 .travis.yml
 
 coverage/
-index.js
 lib/
 node_modules/
 test/
