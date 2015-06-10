@@ -1,6 +1,6 @@
 {
   "name": "webpcss",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "postcss processor for prepare css to use webp images",
   "main": "lib/index.js",
   "repository": "http://github.com/lexich/webpcss",
@@ -8,7 +8,7 @@
     "mocha": "npm run compile && istanbul test _mocha --report html -- test/*_spec.js --reporter spec",
     "test": "npm run jshint && npm run jscs && npm run eslint && npm run mocha",
     "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "jshint": "node_modules/.bin/jshint --reporter node_modules/jshint-stylish/stylish.js",
+    "jshint": "node_modules/.bin/jshint --reporter node_modules/jshint-stylish",
     "jscs": "node_modules/.bin/jscs index.js lib test",
     "eslint": "node_modules/.bin/eslint index.js lib test",
     "compile": "node_modules/.bin/babel lib --out-dir dist",
@@ -34,17 +34,20 @@
     "urldata": "0.0.1"
   },
   "devDependencies": {
-    "babel": "^5.2.17",
-    "babel-eslint": "^3.0.1",
-    "chai": "^2.3.0",
+    "babel": "^5.5.6",
+    "babel-eslint": "^3.1.15",
+    "chai": "^3.0.0",
     "coveralls": "^2.11.2",
-    "eslint": "^0.20.0",
-    "husky": "^0.7.0",
-    "istanbul": "^0.3.13",
+    "cwebp": "^1.1.0",
+    "es6-promise": "^2.3.0",
+    "eslint": "^0.22.1",
+    "husky": "^0.8.1",
+    "istanbul": "^0.3.15",
     "jscs": "^1.13.1",
-    "jshint": "^2.7.0",
-    "jshint-stylish": "^1.0.2",
-    "mocha": "^2.2.4",
-    "mocha-lcov-reporter": "0.0.2"
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.0.0",
+    "mocha": "^2.2.5",
+    "mocha-lcov-reporter": "0.0.2",
+    "postcss": "^4.1.11"
   }
 }
