@@ -35,5 +35,6 @@
   "validateIndentation": 2,
   "requireSemicolons": true,
   "disallowPaddingNewlinesInBlocks": true,
-  "requirePaddingNewLinesAfterBlocks" : null
+  "requirePaddingNewLinesAfterBlocks" : null,
+  "requireTrailingComma": null
 }

@@ -1,7 +1,7 @@
 "use strict";
 
 var fs = require("fs"),
-    libpath = require("path");
+  libpath = require("path");
 
 var pngbinary = fs.readFileSync(libpath.join(__dirname, "avatar.png"));
 var jpgbinary = fs.readFileSync(libpath.join(__dirname, "kitten.jpg"));

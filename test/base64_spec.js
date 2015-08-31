@@ -1,8 +1,9 @@
 "use strict";
-/*global describe, it */
+/* global describe, it */
+
 var WebpBase64 = require("../dist/WebpBase64"),
-    base64stub = require("./fixtures/base64"),
-    expect = require("chai").expect;
+  base64stub = require("./fixtures/base64"),
+  expect = require("chai").expect;
 
 describe("base64", function() {
   var base64 = new WebpBase64();

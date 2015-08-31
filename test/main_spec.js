@@ -1,10 +1,10 @@
-/*global describe, it*/
+/* global describe, it*/
 "use strict";
 
 var webpcss = require("../dist"),
-    base64stub = require("./fixtures/base64"),
-    libpath = require("path"),
-    expect = require("chai").expect;
+  base64stub = require("./fixtures/base64"),
+  libpath = require("path"),
+  expect = require("chai").expect;
 
 describe("webpcss", function() {
   it("not modify sample", function() {
