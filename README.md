@@ -36,7 +36,7 @@ gulp.task('webp', function () {
 gulp.task('css', function () {
     var processors = [
         autoprefixer,
-        webpcss
+        webpcss.default
     ];
     return gulp.src('./src/*.css')
         .pipe( postcss(processors) )
