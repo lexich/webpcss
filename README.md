@@ -17,6 +17,9 @@ WebP is image format that is smaller, that PNG or JPEG, but it is [supported](ht
 This plugin use [cwebp](https://github.com/Intervox/node-webp) for processing images. If you want to use this functionality read [Installation Guide](https://github.com/Intervox/node-webp#installation)
 
 ### Examples
+Using with [webpack](https://webpack.github.io/) and [postcss-loader](https://github.com/postcss/postcss-loader)
+[https://github.com/lexich/example-webpack-postcss-loader-webpcss](https://github.com/lexich/example-webpack-postcss-loader-webpcss)
+
 
 Using with [gulp-postcss](https://github.com/w0rm/gulp-postcss):
 
