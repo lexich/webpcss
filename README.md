@@ -16,6 +16,15 @@ WebP is image format that is smaller, that PNG or JPEG, but it is [supported](ht
 ### Install
 This plugin use [cwebp](https://github.com/Intervox/node-webp) for processing images. If you want to use this functionality read [Installation Guide](https://github.com/Intervox/node-webp#installation)
 
+### Support
+Postcss drop support node 0.10.0 by default. But if your need this version
+use Promise polyfill.
+```js
+var Promise = require("es6-promise");
+Promise.polyfill();
+```
+Versions >= 0.12 including 4.0.0 and iojs works without polufills
+
 ### Examples
 Using with [webpack](https://webpack.github.io/) and [postcss-loader](https://github.com/postcss/postcss-loader):
 *[https://github.com/lexich/example-webpack-postcss-loader-webpcss](https://github.com/lexich/example-webpack-postcss-loader-webpcss)*

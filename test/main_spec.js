@@ -4,7 +4,10 @@
 var webpcss = require("../lib"),
   base64stub = require("./fixtures/base64"),
   libpath = require("path"),
-  expect = require("chai").expect;
+  expect = require("chai").expect,
+  Promise = require("es6-promise");
+
+Promise.polyfill();
 
 describe("webpcss", function() {
   it("not modify sample", function() {
