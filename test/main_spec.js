@@ -17,55 +17,55 @@ describe("webpcss", function() {
   it("html tag", function() {
     var input = "html.test { background: url('test.png'); }";
     return webpcss.transform(input).then(function(res) {
-      expect(input + "\nhtml.webp.test { background-image: url(test.webp); }").to.be.eql(res.css);
+      expect("html.no-webp.test { background: url('test.png'); }" + "\nhtml.test { }" + "\nhtml.webp.test { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("border-radius css property", function() {
     var input = ".test { border-image: url('test.png'); }";
     return webpcss.transform(input).then(function(res) {
-      expect(input + "\n.webp .test { border-image: url(test.webp); }").to.be.eql(res.css);
+      expect(".no-webp .test { border-image: url('test.png'); }" + "\n.test { }" + "\n.webp .test { border-image: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it(".html classname", function() {
     var input = ".html.test { background: url('test.png'); }";
     return webpcss.transform(input).then(function(res) {
-      expect(input + "\n.webp .html.test { background-image: url(test.webp); }").to.be.eql(res.css);
+      expect(".no-webp .html.test { background: url('test.png'); }" + "\n.html.test { }" + "\n.webp .html.test { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("multiple selectors", function() {
     var input = ".test1, .test2 { background: url('test.png'); }";
     return webpcss.transform(input).then(function(res) {
-      expect(input + "\n.webp .test1, .webp .test2 { background-image: url(test.webp); }").to.be.eql(res.css);
+      expect(".no-webp .test1, .no-webp .test2 { background: url('test.png'); }" + "\n.test1, .test2 { }" + "\n.webp .test1, .webp .test2 { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("default options background-image with url", function() {
     var input = ".test { background-image: url(test.jpg); }";
     return webpcss.transform(input).then(function(res) {
-      expect(input + "\n.webp .test { background-image: url(test.webp); }").to.be.eql(res.css);
+      expect(".no-webp .test { background-image: url(test.jpg); }" + "\n.test { }" + "\n.webp .test { background-image: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("default options background with url", function() {
     var input = ".test { background: url(test.jpeg); }";
     webpcss.transform(input).then(function(res) {
-      expect(input + "\n.webp .test { background-image: url(test.webp); }").to.be.eql(res.css);
+      expect(".no-webp .test { background: url(test.jpeg); }" + "\n.test { }" + "\n.webp .test { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("default options background with url and params", function() {
     var input = ".test { background: transparent url(test.png) no-repeat; }";
     return webpcss.transform(input).then(function(res) {
-      expect(input + "\n.webp .test { background-image: url(test.webp); }").to.be.eql(res.css);
+      expect(".no-webp .test { background: transparent url(test.png) no-repeat; }" + "\n.test { }" + "\n.webp .test { background: transparent url(test.webp) no-repeat; }").to.be.eql(res.css);
     });
   });
 
   it("default options background multiple urls", function() {
     var input = ".img_play_photo_multiple{ background: url(number.png) 600px 10px no-repeat,\nurl(\"thingy.png\") 10px 10px no-repeat,\nurl('Paper-4.png');\n}";
-    var output = input + "\n.webp .img_play_photo_multiple{ background-image: url(number.webp),url(thingy.webp),url(Paper-4.webp);\n}";
+    var output = ".no-webp .img_play_photo_multiple{ background: url(number.png) 600px 10px no-repeat,\nurl(\"thingy.png\") 10px 10px no-repeat,\nurl('Paper-4.png'); }" + "\n.img_play_photo_multiple{\n}" + "\n.webp .img_play_photo_multiple{ background: url(number.webp) 600px 10px no-repeat,\nurl(thingy.webp) 10px 10px no-repeat,\nurl(Paper-4.webp); }";
     return webpcss.transform(input).then(function(res) {
       expect(output).to.be.eql(res.css);
     });
@@ -74,8 +74,8 @@ describe("webpcss", function() {
   it("default options multiple mixed clasess", function() {
     var input = ".test1{ background: url(\"test1.jpeg\");}" +
         ".test2{ background-image: url(\'test2.png\');}";
-    var output = input + ".webp .test1{ background-image: url(test1.webp);}" +
-      ".webp .test2{ background-image: url(test2.webp);}";
+    var output = ".no-webp .test1{ background: url(\"test1.jpeg\"); }" + ".test1{}" +
+      ".no-webp .test2{ background-image: url('test2.png'); }" + ".test2{}" + ".webp .test1{ background: url(test1.webp); }" + ".webp .test2{ background-image: url(test2.webp); }";
 
     return webpcss.transform(input).then(function(res) {
       expect(output).to.be.eql(res.css);
@@ -93,7 +93,7 @@ describe("webpcss", function() {
   it("default options background with gif and jpg", function() {
     var input = ".test { background: url(test.gif), url(\"test1.jpg\"); }";
     return webpcss.transform(input).then(function(res) {
-      expect(input + "\n.webp .test { background-image: url(test.gif),url(test1.webp); }").to.be.eql(res.css);
+      expect(".no-webp .test { background: url(test.gif), url(\"test1.jpg\"); }" + "\n.test { }" + "\n.webp .test { background: url(test.gif), url(test1.webp); }").to.be.eql(res.css);
     });
   });
 
@@ -107,27 +107,27 @@ describe("webpcss", function() {
   it("custom options baseClass", function() {
     var input = ".test { background-image: url(test.png); }";
     return webpcss.transform(input, {baseClass: ".webp1"}).then(function(res) {
-      expect(input + "\n.webp1 .test { background-image: url(test.webp); }").to.be.eql(res.css);
+      expect(".no-webp .test { background-image: url(test.png); }" + "\n.test { }" + "\n.webp1 .test { background-image: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("custom options replace_from background with gif", function() {
     var input = ".test { background: url(test.gif); }";
     return webpcss.transform(input, {replace_from: /\.gif/g}).then(function(res) {
-      expect(input + "\n.webp .test { background-image: url(test.webp); }").to.be.eql(res.css);
+      expect(".no-webp .test { background: url(test.gif); }" + "\n.test { }" + "\n.webp .test { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("custom options replace_to background-image with url", function() {
     var input = ".test { background-image: url(test.jpg); }";
     return webpcss.transform(input, {replace_to: ".other"}).then(function(res) {
-      expect(input + "\n.webp .test { background-image: url(test.other); }").to.be.eql(res.css);
+      expect(".no-webp .test { background-image: url(test.jpg); }" + "\n.test { }" + "\n.webp .test { background-image: url(test.other); }").to.be.eql(res.css);
     });
   });
 
   it("check with @media-query", function() {
     var input = "@media all and (min-width:100px){ .test { background-image: url(test.jpg); } }";
-    var output = input + " @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } }";
+    var output = "@media all and (min-width:100px){ .no-webp .test{ background-image: url(test.jpg); } .test { } }" + " @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } }";
     return webpcss.transform(input).then(function(res) {
       expect(output).to.be.eql(res.css);
     });
@@ -135,7 +135,7 @@ describe("webpcss", function() {
 
   it("check with multiple @media-query", function() {
     var input = "@media all and (max-width:200px){ @media all and (min-width:100px){ .test { background-image: url(test.jpg); } } }";
-    var output = input + " @media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } } }";
+    var output = "@media all and (max-width:200px){ @media all and (min-width:100px){ .no-webp .test { background-image: url(test.jpg); } } }" + "@media all and (max-width:200px){ @media all and (min-width:100px){ .test { } } }" + " @media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } } }";
     webpcss.transform(input).then(function(res) {
       expect(output).to.be.eql(res.css);
     });
@@ -159,10 +159,12 @@ describe("webpcss", function() {
     return webpcss.transform(input).then(function(res) {
       var css = res.css;
       expect(css).to.match(/data:image\/png;base64,/);
-      expect(css).to.match(/\.test { background: url\(data:image\/png;base64,/);
+      expect(css).to.match(/\.no-webp \.test { background: url\(data:image\/png;base64,/);
+
+      expect(css).to.match(/\.test { }/);
 
       expect(css).to.match(/data:image\/webp;base64,/);
-      expect(css).to.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
+      expect(css).to.match(/\.webp \.test { background: url\(data:image\/webp;base64,/);
     });
   });
 
@@ -171,10 +173,12 @@ describe("webpcss", function() {
     return webpcss.transform(input).then(function(res) {
       var css = res.css;
       expect(css).to.match(/data:image\/jpg;base64,/);
-      expect(css).to.match(/\.test { background: url\(data:image\/jpg;base64,/);
+      expect(css).to.match(/\.no-webp \.test { background: url\(data:image\/jpg;base64,/);
+
+      expect(css).to.match(/\.test { }/);
 
       expect(css).to.match(/data:image\/webp;base64,/);
-      expect(css).to.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
+      expect(css).to.match(/\.webp \.test { background: url\(data:image\/webp;base64,/);
     });
   });
 
@@ -183,8 +187,8 @@ describe("webpcss", function() {
     var fixturesPath = libpath.join(__dirname, "fixtures");
     return webpcss.transform(input, {inline: true, css_root: fixturesPath}).then(function(res) {
       var css = res.css;
-      expect(css).to.match(/data:image\/webp;base64,/);
-      expect(css).to.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
+      expect(css).to.contain(".no-webp .test { background: url(avatar.png); }");
+      expect(css).to.contain(".webp .test { background: url(data:image/webp;base64,");
     });
   });
 
@@ -193,8 +197,8 @@ describe("webpcss", function() {
     var fixturesPath = libpath.join(__dirname, "fixtures");
     return webpcss.transform(input, {inline: true, css_root: fixturesPath}).then(function(res) {
       var css = res.css;
-      expect(css).to.match(/data:image\/webp;base64,/);
-      expect(css).to.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
+      expect(css).to.contain(".no-webp .test { background: url(kitten.jpg); }");
+      expect(css).to.contain(".webp .test { background: url(data:image/webp;base64,");
     });
   });
 
@@ -213,7 +217,7 @@ describe("webpcss", function() {
     return webpcss.transform(input, {inline: true, css_root: fixturesPath}).then(function(res) {
       var css = res.css;
       expect(css).to.match(/data:image\/webp;base64,/);
-      expect(css).to.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
+      expect(css).to.match(/\.webp \.test { background: url\(data:image\/webp;base64,/);
     });
   });
 
@@ -223,7 +227,7 @@ describe("webpcss", function() {
     return webpcss.transform(input, {inline: true, css_root: fixturesPath}).then(function(res) {
       var css = res.css;
       expect(css).to.match(/data:image\/webp;base64,/);
-      expect(css).to.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
+      expect(css).to.match(/\.webp \.test { background: url\(data:image\/webp;base64,/);
     });
   });
 
@@ -233,7 +237,7 @@ describe("webpcss", function() {
     return webpcss.transform(input, {inline: true, image_root: fixturesPath}).then(function(res) {
       var css = res.css;
       expect(css).to.match(/data:image\/webp;base64,/);
-      expect(css).to.match(/\.webp \.test { background-image: url\(data:image\/webp;base64,/);
+      expect(css).to.match(/\.webp \.test { background: url\(data:image\/webp;base64,/);
     });
   });
 });
