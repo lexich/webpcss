@@ -30,7 +30,6 @@
   "dependencies": {
     "bluebird": "^2.10.0",
     "cwebp": "^1.0.5",
-    "es6-promise": "^3.0.2",
     "postcss": "^5.0.4",
     "urldata": "0.0.1"
   },
