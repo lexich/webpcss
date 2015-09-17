@@ -1,7 +1,7 @@
 "use strict";
 /* global describe, it */
 
-var WebpBase64 = require("../dist/WebpBase64"),
+var WebpBase64 = require("../lib/WebpBase64"),
   base64stub = require("./fixtures/base64"),
   expect = require("chai").expect;
 
