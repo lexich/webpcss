@@ -61,11 +61,12 @@ Results of webpcss processor.
 
 ```css
 /* Source */
-.icon { background-image: url('../images/icon.png') }
+.icon { color: #222; background-image: url('../images/icon.png'); }
 
 /* Result */
-.icon { background-image: url('../images/icon.png') }
-.webp .icon { background-image: url('../images/icon.webp') }
+.no-webp .icon { background-image: url('../images/icon.png'); }
+.icon { color: #222; }
+.webp .icon { background-image: url('../images/icon.webp'); }
 ```
 
 Results of webp task.
