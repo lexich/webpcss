@@ -97,7 +97,7 @@ before
 after
 
 ```css
-.test { background-image:url('test.png'); }
+.no-webp .test { background-image:url('test.png'); }
 .webp .test { background-image:url('test.webp'); }
 ```
 .webp class indicate webp browser support. Recommends to use [Modernizr](http://modernizr.com/)
@@ -111,6 +111,16 @@ RegExp pattern for replace
 Type: String 
 Default: .webp  
 To checks browser support of webp format need to use [Modernizr](http://modernizr.com/) which adds `.webp` class to `body` if browser support WebP and browser will download smaller WebP image instead of bigger PNG.
+```html
+<script>
+  document.documentElement.classname += (Modernizr.webp ? "webp" : "no-webp");
+</script>
+```
+
+- `no_webp`
+Type: String
+Default: .no_webp
+Append before rules with no-webp content
 
 - `process_selector`  
 Type: function(selector, baseClass)  
