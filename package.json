@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "repository": "http://github.com/lexich/webpcss",
   "scripts": {
-    "mocha": "npm run compile && istanbul test _mocha --report html -- test/*_spec.js --reporter spec",
+    "mocha": "istanbul test _mocha --report html -- --require babel/register test/*_spec.js --reporter spec",
     "test": "npm run jshint && npm run jscs && npm run eslint && npm run mocha",
-    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "coveralls": "istanbul cover node_modules/.bin/_mocha --report html --report lcovonly -- --require babel/register  test/*_spec.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "jshint": "node_modules/.bin/jshint --reporter node_modules/jshint-stylish",
     "jscs": "node_modules/.bin/jscs index.js lib test",
     "eslint": "node_modules/.bin/eslint index.js lib test",
@@ -29,7 +29,6 @@
   "license": "MIT",
   "dependencies": {
     "cwebp": "^1.0.5",
-    "es6-promise": "^3.0.2",
     "postcss": "^5.0.4",
     "urldata": "0.0.1"
   },
@@ -38,9 +37,10 @@
     "babel-eslint": "^4.1.1",
     "chai": "^3.2.0",
     "coveralls": "^2.11.4",
-    "eslint": "1.3.1",
+    "es6-promise": "^3.0.2",
+    "eslint": "^1.4.3",
     "eslint-config-airbnb": "0.0.8",
-    "eslint-plugin-react": "^3.3.1",
+    "eslint-plugin-react": "^3.4.1",
     "husky": "^0.10.1",
     "istanbul": "^0.3.19",
     "jscs": "2.1.1",
