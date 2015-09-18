@@ -64,7 +64,7 @@ Results of webpcss processor.
 .icon { color: #222; background-image: url('../images/icon.png'); }
 
 /* Result */
-.no-webp .icon { background-image: url('../images/icon.png'); }
+.icon { background-image: url('../images/icon.png'); }
 .icon { color: #222; }
 .webp .icon { background-image: url('../images/icon.webp'); }
 ```
@@ -97,15 +97,27 @@ before
 after
 
 ```css
-.no-webp .test { background-image:url('test.png'); }
+.test { background-image:url('test.png'); }
 .webp .test { background-image:url('test.webp'); }
 ```
 .webp class indicate webp browser support. Recommends to use [Modernizr](http://modernizr.com/)
 
 - `noWebpClass`
 Type: String
-Default: .no-webp
-Class which prepend selector without webp content.
+Default: ""
+Class which prepend selector without webp content. For expample:
+`noWebpClass=".no-webp"`
+before
+
+```css
+.test { background-image:url('test.png'); }
+```
+
+after
+
+```css
+.no-webp .test { background-image:url('test.png'); }
+.webp .test { background-image:url('test.webp'); }
 
 - `replace_from`  
 Type: RegExp 
