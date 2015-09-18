@@ -61,11 +61,12 @@ Results of webpcss processor.
 
 ```css
 /* Source */
-.icon { background-image: url('../images/icon.png') }
+.icon { color: #222; background-image: url('../images/icon.png'); }
 
 /* Result */
-.icon { background-image: url('../images/icon.png') }
-.webp .icon { background-image: url('../images/icon.webp') }
+.icon { background-image: url('../images/icon.png'); }
+.icon { color: #222; }
+.webp .icon { background-image: url('../images/icon.webp'); }
 ```
 
 Results of webp task.
@@ -83,7 +84,7 @@ icon.png icon.webp
 
 ### Options
 
-- `baseClass`  
+- `webpClass`  
 Type: String 
 Default: '.webp'  
 Class which prepend selector. For expample:
@@ -101,6 +102,23 @@ after
 ```
 .webp class indicate webp browser support. Recommends to use [Modernizr](http://modernizr.com/)
 
+- `noWebpClass`
+Type: String
+Default: ""
+Class which prepend selector without webp content. For expample:
+`noWebpClass=".no-webp"`
+before
+
+```css
+.test { background-image:url('test.png'); }
+```
+
+after
+
+```css
+.no-webp .test { background-image:url('test.png'); }
+.webp .test { background-image:url('test.webp'); }
+
 - `replace_from`  
 Type: RegExp 
 Default: /\.(png|jpg|jpeg)/  
@@ -110,6 +128,12 @@ RegExp pattern for replace
 Type: String 
 Default: .webp  
 To checks browser support of webp format need to use [Modernizr](http://modernizr.com/) which adds `.webp` class to `body` if browser support WebP and browser will download smaller WebP image instead of bigger PNG.
+```html
+<script>
+  document.documentElement.classname += (Modernizr.webp ? "webp" : "no-webp");
+</script>
+```
+
 
 - `process_selector`  
 Type: function(selector, baseClass)  
