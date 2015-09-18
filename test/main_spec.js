@@ -20,49 +20,49 @@ describe("webpcss", function() {
   it("html tag", function() {
     var input = "html.test { background: url('test.png'); }";
     return webpcss.transform(input).then(function(res) {
-      expect("html.test { background: url('test.png'); }" + "\nhtml.webp.test { background: url(test.webp); }").to.be.eql(res.css);
+      expect(input + "\nhtml.webp.test { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("border-radius css property", function() {
     var input = ".test { border-image: url('test.png'); }";
     return webpcss.transform(input).then(function(res) {
-      expect(".test { border-image: url('test.png'); }" + "\n.webp .test { border-image: url(test.webp); }").to.be.eql(res.css);
+      expect(input + "\n.webp .test { border-image: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it(".html classname", function() {
     var input = ".html.test { background: url('test.png'); }";
     return webpcss.transform(input).then(function(res) {
-      expect(".html.test { background: url('test.png'); }" + "\n.webp .html.test { background: url(test.webp); }").to.be.eql(res.css);
+      expect(input + "\n.webp .html.test { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("multiple selectors", function() {
     var input = ".test1, .test2 { background: url('test.png'); }";
     return webpcss.transform(input).then(function(res) {
-      expect(".test1, .test2 { background: url('test.png'); }" + "\n.webp .test1, .webp .test2 { background: url(test.webp); }").to.be.eql(res.css);
+      expect(input + "\n.webp .test1, .webp .test2 { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("default options background-image with url", function() {
     var input = ".test { background-image: url(test.jpg); }";
     return webpcss.transform(input).then(function(res) {
-      expect(".test { background-image: url(test.jpg); }" + "\n.webp .test { background-image: url(test.webp); }").to.be.eql(res.css);
+      expect(input + "\n.webp .test { background-image: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("default options background with url", function() {
     var input = ".test { background: url(test.jpeg); }";
     webpcss.transform(input).then(function(res) {
-      expect(".test { background: url(test.jpeg); }" + "\n.webp .test { background: url(test.webp); }").to.be.eql(res.css);
+      expect(input + "\n.webp .test { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("default options background with url and params", function() {
     var input = ".test { background: transparent url(test.png) no-repeat; }";
     return webpcss.transform(input).then(function(res) {
-      expect(".test { background: transparent url(test.png) no-repeat; }" + "\n.webp .test { background: transparent url(test.webp) no-repeat; }").to.be.eql(res.css);
+      expect(input + "\n.webp .test { background: transparent url(test.webp) no-repeat; }").to.be.eql(res.css);
     });
   });
 
@@ -96,7 +96,7 @@ describe("webpcss", function() {
   it("default options background with gif and jpg", function() {
     var input = ".test { background: url(test.gif), url(\"test1.jpg\"); }";
     return webpcss.transform(input).then(function(res) {
-      expect(".test { background: url(test.gif), url(\"test1.jpg\"); }" + "\n.webp .test { background: url(test.gif), url(test1.webp); }").to.be.eql(res.css);
+      expect(input + "\n.webp .test { background: url(test.gif), url(test1.webp); }").to.be.eql(res.css);
     });
   });
 
@@ -110,7 +110,7 @@ describe("webpcss", function() {
   it("custom options webpClass", function() {
     var input = ".test { background-image: url(test.png); }";
     return webpcss.transform(input, {webpClass: ".webp1"}).then(function(res) {
-      expect(".test { background-image: url(test.png); }" + "\n.webp1 .test { background-image: url(test.webp); }").to.be.eql(res.css);
+      expect(input + "\n.webp1 .test { background-image: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
@@ -145,14 +145,14 @@ describe("webpcss", function() {
   it("custom options replace_from background with gif", function() {
     var input = ".test { background: url(test.gif); }";
     return webpcss.transform(input, {replace_from: /\.gif/g}).then(function(res) {
-      expect(".test { background: url(test.gif); }" + "\n.webp .test { background: url(test.webp); }").to.be.eql(res.css);
+      expect(input + "\n.webp .test { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("custom options replace_to background-image with url", function() {
     var input = ".test { background-image: url(test.jpg); }";
     return webpcss.transform(input, {replace_to: ".other"}).then(function(res) {
-      expect(".test { background-image: url(test.jpg); }" + "\n.webp .test { background-image: url(test.other); }").to.be.eql(res.css);
+      expect(input + "\n.webp .test { background-image: url(test.other); }").to.be.eql(res.css);
     });
   });
 
