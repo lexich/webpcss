@@ -107,9 +107,9 @@ describe("webpcss", function() {
     });
   });
 
-  it("custom options baseClass", function() {
+  it("custom options webpClass", function() {
     var input = ".test { background-image: url(test.png); }";
-    return webpcss.transform(input, {baseClass: ".webp1"}).then(function(res) {
+    return webpcss.transform(input, {webpClass: ".webp1"}).then(function(res) {
       expect(".no-webp .test { background-image: url(test.png); }" + "\n.test { }" + "\n.webp1 .test { background-image: url(test.webp); }").to.be.eql(res.css);
     });
   });

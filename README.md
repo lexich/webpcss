@@ -84,7 +84,7 @@ icon.png icon.webp
 
 ### Options
 
-- `baseClass`  
+- `webpClass`  
 Type: String 
 Default: '.webp'  
 Class which prepend selector. For expample:
@@ -102,6 +102,11 @@ after
 ```
 .webp class indicate webp browser support. Recommends to use [Modernizr](http://modernizr.com/)
 
+- `noWebpClass`
+Type: String
+Default: .no-webp
+Class which prepend selector without webp content.
+
 - `replace_from`  
 Type: RegExp 
 Default: /\.(png|jpg|jpeg)/  
@@ -117,10 +122,6 @@ To checks browser support of webp format need to use [Modernizr](http://moderniz
 </script>
 ```
 
-- `no_webp`
-Type: String
-Default: .no_webp
-Append before rules with no-webp content
 
 - `process_selector`  
 Type: function(selector, baseClass)  
