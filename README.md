@@ -170,6 +170,7 @@ Default: null
 You can configure cwebp encoder according [cwebp documentation](https://github.com/Intervox/node-webp#specifying-conversion-options)
 
 ### Changelog
+- 1.1.0 - add webpClass, noWebpClass options deprecate baseClass option
 - 1.0.0 - add suport CWeb for automatic inline images in webp format
 - 0.0.11 - add support of border-image, update deps
 - 0.0.10 - update deps

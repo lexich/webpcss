@@ -1,6 +1,6 @@
 {
   "name": "webpcss",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "postcss processor for prepare css to use webp images",
   "main": "dist/index.js",
   "repository": "http://github.com/lexich/webpcss",
