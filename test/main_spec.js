@@ -114,6 +114,34 @@ describe("webpcss", function() {
     });
   });
 
+  it("custom options noWebpClass with example background-image", function() {
+    var input = ".test { background-image: url(test.png); }";
+    return webpcss.transform(input, {noWebpClass: ".no-webp"}).then(function(res) {
+      expect(".no-webp .test { background-image: url(test.png); }" + "\n.webp .test { background-image: url(test.webp); }").to.be.eql(res.css);
+    });
+  });
+
+  it("custom options noWebpClass example background", function() {
+    var input = ".test { background: transparent url(test.png); }";
+    return webpcss.transform(input, {noWebpClass: ".no-webp"}).then(function(res) {
+      expect(".no-webp .test { background: transparent url(test.png); }" + "\n.webp .test { background: transparent url(test.webp); }").to.be.eql(res.css);
+    });
+  });
+
+  it("custom options noWebpClass example background with other decl", function() {
+    var input = ".test { background: transparent url(test.png); color: red; }";
+    return webpcss.transform(input, {noWebpClass: ".no-webp"}).then(function(res) {
+      expect(".no-webp .test { background: transparent url(test.png); }" + "\n.test { color: red; }" + "\n.webp .test { background: transparent url(test.webp); }").to.be.eql(res.css);
+    });
+  });
+
+  it("custom options noWebpClass example background with other decl with @media query", function() {
+    var input = "@media screen and (min-width: 500px) { .test { background: transparent url(test.png); color: red; } }";
+    return webpcss.transform(input, {noWebpClass: ".no-webp"}).then(function(res) {
+      expect("@media screen and (min-width: 500px) { .no-webp .test { background: transparent url(test.png); } .test { color: red; } } " + "@media screen and (min-width: 500px) { .webp .test { background: transparent url(test.webp); } }").to.be.eql(res.css);
+    });
+  });
+
   it("custom options replace_from background with gif", function() {
     var input = ".test { background: url(test.gif); }";
     return webpcss.transform(input, {replace_from: /\.gif/g}).then(function(res) {
