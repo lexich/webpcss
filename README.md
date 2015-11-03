@@ -37,7 +37,7 @@ var gulp = require('gulp');
 var webp = require('gulp-webp');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer-core');
-var webpcss = require('webpcss-transform');
+var webpcss = require('webpcss');
 
 gulp.task('webp', function () {
     return gulp.src('./images/*.{png,jpg,jpeg}')
