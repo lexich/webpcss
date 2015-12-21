@@ -1,4 +1,5 @@
 /* global describe, it*/
+/* eslint no-var: 0 */
 "use strict";
 
 var webpcss = require("../lib"),
@@ -109,49 +110,49 @@ describe("webpcss", function() {
 
   it("custom options webpClass", function() {
     var input = ".test { background-image: url(test.png); }";
-    return webpcss.transform(input, {webpClass: ".webp1"}).then(function(res) {
+    return webpcss.transform(input, { webpClass: ".webp1" }).then(function(res) {
       expect(input + "\n.webp1 .test { background-image: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("custom options noWebpClass with example background-image", function() {
     var input = ".test { background-image: url(test.png); }";
-    return webpcss.transform(input, {noWebpClass: ".no-webp"}).then(function(res) {
+    return webpcss.transform(input, { noWebpClass: ".no-webp" }).then(function(res) {
       expect(".no-webp .test { background-image: url(test.png); }" + "\n.webp .test { background-image: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("custom options noWebpClass example background", function() {
     var input = ".test { background: transparent url(test.png); }";
-    return webpcss.transform(input, {noWebpClass: ".no-webp"}).then(function(res) {
+    return webpcss.transform(input, { noWebpClass: ".no-webp" }).then(function(res) {
       expect(".no-webp .test { background: transparent url(test.png); }" + "\n.webp .test { background: transparent url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("custom options noWebpClass example background with other decl", function() {
     var input = ".test { background: transparent url(test.png); color: red; }";
-    return webpcss.transform(input, {noWebpClass: ".no-webp"}).then(function(res) {
+    return webpcss.transform(input, { noWebpClass: ".no-webp" }).then(function(res) {
       expect(".no-webp .test { background: transparent url(test.png); }" + "\n.test { color: red; }" + "\n.webp .test { background: transparent url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("custom options noWebpClass example background with other decl with @media query", function() {
     var input = "@media screen and (min-width: 500px) { .test { background: transparent url(test.png); color: red; } }";
-    return webpcss.transform(input, {noWebpClass: ".no-webp"}).then(function(res) {
+    return webpcss.transform(input, { noWebpClass: ".no-webp" }).then(function(res) {
       expect("@media screen and (min-width: 500px) { .no-webp .test { background: transparent url(test.png); } .test { color: red; } } " + "@media screen and (min-width: 500px) { .webp .test { background: transparent url(test.webp); } }").to.be.eql(res.css);
     });
   });
 
   it("custom options replace_from background with gif", function() {
     var input = ".test { background: url(test.gif); }";
-    return webpcss.transform(input, {replace_from: /\.gif/g}).then(function(res) {
+    return webpcss.transform(input, { replace_from: /\.gif/g }).then(function(res) {
       expect(input + "\n.webp .test { background: url(test.webp); }").to.be.eql(res.css);
     });
   });
 
   it("custom options replace_to background-image with url", function() {
     var input = ".test { background-image: url(test.jpg); }";
-    return webpcss.transform(input, {replace_to: ".other"}).then(function(res) {
+    return webpcss.transform(input, { replace_to: ".other" }).then(function(res) {
       expect(input + "\n.webp .test { background-image: url(test.other); }").to.be.eql(res.css);
     });
   });
@@ -216,7 +217,7 @@ describe("webpcss", function() {
   it("check inline property for png source", function() {
     var input = ".test { background: url(avatar.png); }";
     var fixturesPath = libpath.join(__dirname, "fixtures");
-    return webpcss.transform(input, {inline: true, css_root: fixturesPath}).then(function(res) {
+    return webpcss.transform(input, { inline: true, css_root: fixturesPath }).then(function(res) {
       var css = res.css;
       expect(css).to.contain(".test { background: url(avatar.png); }");
       expect(css).to.contain(".webp .test { background: url(data:image/webp;base64,");
@@ -226,7 +227,7 @@ describe("webpcss", function() {
   it("check inline property for jpg source", function() {
     var input = ".test { background: url(kitten.jpg); }";
     var fixturesPath = libpath.join(__dirname, "fixtures");
-    return webpcss.transform(input, {inline: true, css_root: fixturesPath}).then(function(res) {
+    return webpcss.transform(input, { inline: true, css_root: fixturesPath }).then(function(res) {
       var css = res.css;
       expect(css).to.contain(".test { background: url(kitten.jpg); }");
       expect(css).to.contain(".webp .test { background: url(data:image/webp;base64,");
@@ -236,7 +237,7 @@ describe("webpcss", function() {
   it("check inline property for invalid path source", function() {
     var input = ".test { background: url(kitten1.jpg); }";
     var fixturesPath = libpath.join(__dirname, "fixtures");
-    return webpcss.transform(input, {inline: true, css_root: fixturesPath}).then(function(res) {
+    return webpcss.transform(input, { inline: true, css_root: fixturesPath }).then(function(res) {
       var css = res.css;
       expect(css).to.eql(input);
     });
@@ -245,7 +246,7 @@ describe("webpcss", function() {
   it("check inline property for jpg source with relative path", function() {
     var input = ".test { background: url(kitten.jpg); }";
     var fixturesPath = libpath.join(__dirname, "fixtures");
-    return webpcss.transform(input, {inline: true, css_root: fixturesPath}).then(function(res) {
+    return webpcss.transform(input, { inline: true, css_root: fixturesPath }).then(function(res) {
       var css = res.css;
       expect(css).to.match(/data:image\/webp;base64,/);
       expect(css).to.match(/\.webp \.test { background: url\(data:image\/webp;base64,/);
@@ -255,7 +256,7 @@ describe("webpcss", function() {
   it("check inline property for jpg source with relative path", function() {
     var input = ".test { background: url(../fixtures/kitten.jpg); }";
     var fixturesPath = libpath.join(__dirname, "css");
-    return webpcss.transform(input, {inline: true, css_root: fixturesPath}).then(function(res) {
+    return webpcss.transform(input, { inline: true, css_root: fixturesPath }).then(function(res) {
       var css = res.css;
       expect(css).to.match(/data:image\/webp;base64,/);
       expect(css).to.match(/\.webp \.test { background: url\(data:image\/webp;base64,/);
@@ -265,11 +266,10 @@ describe("webpcss", function() {
   it("check inline property for jpg source with relative path", function() {
     var input = ".test { background: url(/kitten.jpg); }";
     var fixturesPath = libpath.join(__dirname, "fixtures");
-    return webpcss.transform(input, {inline: true, image_root: fixturesPath}).then(function(res) {
+    return webpcss.transform(input, { inline: true, image_root: fixturesPath }).then(function(res) {
       var css = res.css;
       expect(css).to.match(/data:image\/webp;base64,/);
       expect(css).to.match(/\.webp \.test { background: url\(data:image\/webp;base64,/);
     });
   });
 });
-

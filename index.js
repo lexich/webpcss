@@ -1,5 +1,6 @@
 "use strict";
 
+/* eslint no-var: 0 */
 var path = require("path");
 
 var escape = function(str) {
@@ -10,7 +11,7 @@ var regexp = ["lib", "test"].map(function(i) {
   return "^" + escape(path.join(__dirname, i) + path.sep);
 }).join("|");
 
-require("./node_modules/babel/node_modules/babel-core/register")({
+require("babel-core/register")({
   only: new RegExp("(" + regexp + ")"),
   ignore: false,
   loose: "all"

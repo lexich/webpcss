@@ -1,5 +1,6 @@
 "use strict";
 /* global describe, it */
+/* eslint no-var: 0 */
 
 var WebpBase64 = require("../lib/WebpBase64"),
   base64stub = require("./fixtures/base64"),
@@ -21,19 +22,19 @@ describe("base64", function() {
     var urlPng = "url(" + png + ")";
     var res = base64.extract(png);
     expect(res).to.be.instanceof(Array).and.have.lengthOf(1);
-    expect([{mimetype: "image/png", data: "iVBORw"}]).to.eql(res);
+    expect([{ mimetype: "image/png", data: "iVBORw" }]).to.eql(res);
 
     res = base64.extract(urlPng, true);
     expect(res).to.be.instanceof(Array).and.have.lengthOf(1);
-    expect([{mimetype: "image/png", data: "iVBORw"}]).to.eql(res);
+    expect([{ mimetype: "image/png", data: "iVBORw" }]).to.eql(res);
 
     res = base64.extract(base64stub.png_uri);
     expect(res).to.be.instanceof(Array).and.have.lengthOf(1);
-    expect([{mimetype: "image/png", data: base64stub.png_base64}]).to.eql(res);
+    expect([{ mimetype: "image/png", data: base64stub.png_base64 }]).to.eql(res);
 
     res = base64.extract(base64stub.png_css, true);
     expect(res).to.be.instanceof(Array).and.have.lengthOf(1);
-    expect([{mimetype: "image/png", data: base64stub.png_base64}]).to.eql(res);
+    expect([{ mimetype: "image/png", data: base64stub.png_base64 }]).to.eql(res);
   });
 
   it("extract multiple png", function() {
@@ -44,19 +45,19 @@ describe("base64", function() {
   });
 
   it("extract breaking data", function() {
-    expect([{mimetype: "_image/png", data: "iVBORw"}]).to.eql(
+    expect([{ mimetype: "_image/png", data: "iVBORw" }]).to.eql(
       base64.extract("data:_image/png;base64,iVBORw")
     );
 
-    expect([{mimetype: "url", data: "data_:image/png;base64,iVBORw"}]).to.eql(
+    expect([{ mimetype: "url", data: "data_:image/png;base64,iVBORw" }]).to.eql(
       base64.extract("data_:image/png;base64,iVBORw")
     );
 
-    expect([{mimetype: "url", data: "data:image/pngbase64,iVBORw"}]).to.eql(
+    expect([{ mimetype: "url", data: "data:image/pngbase64,iVBORw" }]).to.eql(
       base64.extract("data:image/pngbase64,iVBORw")
     );
 
-    expect([{mimetype: "url", data: "data:image/png;base64iVBORw"}]).to.eql(
+    expect([{ mimetype: "url", data: "data:image/png;base64iVBORw" }]).to.eql(
       base64.extract("data:image/png;base64iVBORw")
     );
   });
