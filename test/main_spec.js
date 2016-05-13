@@ -157,6 +157,13 @@ describe("webpcss", function() {
     });
   });
 
+  it("replace_to && replace_from", function() {
+    var input = ".icon { color: #222; background-image: url('../images/icon.png'); }";
+    return webpcss.transform(input, { replace_to: ".$1.webp" }).then(function(res) {
+      expect(input + "\n.webp .icon { background-image: url(../images/icon.png.webp); }").to.be.eql(res.css);
+    });
+  });
+
   it("check with @media-query", function() {
     var input = "@media all and (min-width:100px){ .test { background-image: url(test.jpg); } }";
     var output = input + " @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } }";
