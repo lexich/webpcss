@@ -2,22 +2,22 @@
 /* global describe, it */
 /* eslint no-var: 0 */
 
-var WebpBase64 = require("../lib/WebpBase64"),
-  base64stub = require("./fixtures/base64"),
-  expect = require("chai").expect,
-  Promise = require("es6-promise");
+import WebpBase64 from "../lib/WebpBase64";
+import base64stub from "./fixtures/base64";
+import { expect } from "chai";
+import Promise from "es6-promise";
 
 Promise.polyfill();
-describe("base64", function() {
+describe("base64", ()=> {
   var base64 = new WebpBase64();
 
-  it("test base64 data", function() {
+  it("test base64 data", ()=> {
     expect(new Buffer(base64stub.png_base64, "base64").toString()).to.eql(
       base64stub.png_bin.toString()
     );
   });
 
-  it("extract png", function() {
+  it("extract png", ()=> {
     var png = "data:image/png;base64,iVBORw";
     var urlPng = "url(" + png + ")";
     var res = base64.extract(png);
@@ -37,14 +37,14 @@ describe("base64", function() {
     expect([{ mimetype: "image/png", data: base64stub.png_base64 }]).to.eql(res);
   });
 
-  it("extract multiple png", function() {
+  it("extract multiple png", ()=> {
     var png = "data:image/png;base64,iVBORw";
     var urlPng2 = "url(" + png + "), url(" + png + ")";
     var res = base64.extract(urlPng2, true);
     expect(res).to.be.ok;
   });
 
-  it("extract breaking data", function() {
+  it("extract breaking data", ()=> {
     expect([{ mimetype: "_image/png", data: "iVBORw" }]).to.eql(
       base64.extract("data:_image/png;base64,iVBORw")
     );
@@ -62,25 +62,19 @@ describe("base64", function() {
     );
   });
 
-  it("test convert data with node-webp png", function() {
-    return base64.convert(base64stub.png_bin)
-      .catch(function(err) {
-        expect(err).to.not.exist;
-      })
-      .done(function(buffer) {
+  it("test convert data with node-webp png",
+    ()=> base64.convert(base64stub.png_bin)
+      .catch((err)=> expect(err).to.not.exist)
+      .done((buffer)=> {
         expect(buffer).to.be.instanceof(Buffer);
         expect(buffer).to.be.eql(base64stub.webp);
-      });
-  });
+      }));
 
-  it("test convert data with node-webp jpg", function() {
-    return base64.convert(base64stub.jpg_bin)
-      .catch(function(err) {
-        expect(err).to.not.exist;
-      })
-      .done(function(buffer) {
+  it("test convert data with node-webp jpg",
+    ()=> base64.convert(base64stub.jpg_bin)
+      .catch((err)=> expect(err).to.not.exist)
+      .done((buffer)=> {
         expect(buffer).to.be.instanceof(Buffer);
         expect(buffer).to.be.eql(base64stub.webp_jpg_bin);
-      });
-  });
+      }));
 });
