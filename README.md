@@ -23,7 +23,7 @@ use Promise polyfill.
 var Promise = require("es6-promise");
 Promise.polyfill();
 ```
-Versions >= 0.12 including 4.0.0 and iojs works without polufills
+Versions >= 0.12 including 4.0.0 and iojs works without polyfills
 
 ### Examples
 Using with [webpack](https://webpack.github.io/) and [postcss-loader](https://github.com/postcss/postcss-loader):
@@ -118,6 +118,7 @@ after
 ```css
 .no-webp .test { background-image:url('test.png'); }
 .webp .test { background-image:url('test.webp'); }
+```
 
 - `replace_from`  
 Type: RegExp 
