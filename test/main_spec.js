@@ -1,12 +1,14 @@
 /* global describe, it*/
 /* eslint no-var: 0, max-len: 0 */
+/* eslint import/no-extraneous-dependencies: 0 */
+
 "use strict";
 
-import { transform } from "../lib";
-import base64stub from "./fixtures/base64";
 import libpath from "path";
 import { expect } from "chai";
 import Promise from "es6-promise";
+import { transform } from "../lib";
+import base64stub from "./fixtures/base64";
 
 Promise.polyfill();
 

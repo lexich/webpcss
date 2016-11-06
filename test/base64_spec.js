@@ -1,11 +1,13 @@
 "use strict";
+
 /* global describe, it */
-/* eslint no-var: 0 */
+/* eslint no-var: 0, import/no-extraneous-dependencies: 0 */
+
+import { expect } from "chai";
+import Promise from "es6-promise";
 
 import WebpBase64 from "../lib/WebpBase64";
 import base64stub from "./fixtures/base64";
-import { expect } from "chai";
-import Promise from "es6-promise";
 
 Promise.polyfill();
 describe("base64", ()=> {

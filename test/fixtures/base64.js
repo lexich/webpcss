@@ -1,4 +1,5 @@
 "use strict";
+
 /* eslint no-var: 0 */
 
 var fs = require("fs"),

@@ -49,6 +49,8 @@
     "arrow-spacing": [2, { "before": false, "after": true }],
     "prefer-template": 0,
     "no-useless-concat": 0,
-    "no-confusing-arrow": 0
+    "no-confusing-arrow": 0,
+    "arrow-parens": 0,
+    "no-extra-boolean-cast": 0
   }
 }

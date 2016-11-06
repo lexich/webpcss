@@ -1,6 +1,7 @@
 "use strict";
 
 /* eslint no-var: 0, import/export: 0, prefer-arrow-callback: 0 */
+/* eslint import/no-extraneous-dependencies: 0, no-useless-escape: 0 */
 var path = require("path");
 
 var escape = function (str) {
