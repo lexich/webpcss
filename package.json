@@ -1,11 +1,11 @@
 {
   "name": "webpcss",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "description": "postcss processor for prepare css to use webp images",
   "main": "dist/index.js",
   "repository": "http://github.com/lexich/webpcss",
   "scripts": {
-    "mocha": "istanbul test _mocha --report html -- --compilers js:babel-core/register test/*_spec.js --reporter spec",
+    "mocha": "istanbul test node_modules/mocha/bin/_mocha --report html -- --compilers js:babel-core/register --timeout 8000 test/*_spec.js --reporter spec",
     "test": "npm run eslint && npm run mocha",
     "coveralls": "istanbul cover node_modules/.bin/_mocha --report html --report lcovonly -- --compilers js:babel-core/register  test/*_spec.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "eslint": "node_modules/.bin/eslint index.js lib test",
@@ -26,9 +26,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "cwebp": "2.0.1",
+    "cwebp": "^2.0.3",
+    "lodash": "^4.17.10",
     "postcss": "5.2.5",
-    "urldata": "^0.0.1"
+    "urldata": "^0.0.1",
+    "webp-converter": "2.1.6"
   },
   "devDependencies": {
     "babel": "6.5.2",
