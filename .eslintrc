@@ -1,10 +1,16 @@
 {
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended"
+  ],
   "parser": "babel-eslint",
   "env": {
     "browser": true,
     "node": true
   },
+  "plugins": [
+    "prettier"
+  ],
   "ecmaFeatures": {
     "arrowFunctions": true,
     "blockBindings": true,
@@ -46,7 +52,6 @@
     "guard-for-in": 0,
     "comma-dangle": 0,
     "space-before-function-paren": 0,
-    "arrow-spacing": [2, { "before": false, "after": true }],
     "prefer-template": 0,
     "no-useless-concat": 0,
     "no-confusing-arrow": 0,

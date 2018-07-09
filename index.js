@@ -4,17 +4,19 @@
 /* eslint import/no-extraneous-dependencies: 0, no-useless-escape: 0 */
 var path = require("path");
 
-var escape = function (str) {
+var escape = function(str) {
   return str.replace(/[\[\]\/{}()*+?.\\^$|-]/g, "\\$&");
 };
 
-var regexp = ["lib", "test"].map(function (i) {
-  return "^" + escape(path.join(__dirname, i) + path.sep);
-}).join("|");
+var regexp = ["lib", "test"]
+  .map(function(i) {
+    return "^" + escape(path.join(__dirname, i) + path.sep);
+  })
+  .join("|");
 
 require("babel-core/register")({
   only: new RegExp("(" + regexp + ")"),
   ignore: false,
-  loose: "all"
+  loose: "all",
 });
 module.exports = require("./lib");

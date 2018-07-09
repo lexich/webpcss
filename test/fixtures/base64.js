@@ -29,5 +29,5 @@ module.exports = {
   jpg_bin: jpgbinary,
   jpg_uri: jpgUri,
   jpg_css: "url(" + jpgUri + ")",
-  webp_jpg_bin: webpJpgbinary
+  webp_jpg_bin: webpJpgbinary,
 };

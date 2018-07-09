@@ -10,9 +10,11 @@
     "coveralls": "istanbul cover node_modules/.bin/_mocha --report html --report lcovonly -- --compilers js:babel-core/register  test/*_spec.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "eslint": "node_modules/.bin/eslint index.js lib test",
     "compile": "node_modules/.bin/babel lib --out-dir dist",
-    "precommit": "npm test && npm run compile",
+    "precommit": "npm run prettier && npm test && npm run compile",
     "prepush": "npm test && npm run compile",
-    "postmerge": "npm install"
+    "postmerge": "npm install",
+    "prettier": "prettier --write \"./**/*.js\"",
+    "release": "npm test && standard-version && git push --follow-tags origin master --no-verify && npm publish"
   },
   "keywords": [
     "webp",
@@ -29,6 +31,7 @@
     "cwebp": "^2.0.3",
     "lodash": "^4.17.10",
     "postcss": "5.2.5",
+    "prettier": "^1.13.7",
     "urldata": "^0.0.1",
     "webp-converter": "2.1.6"
   },
@@ -45,12 +48,15 @@
     "es6-promise": "4.0.5",
     "eslint": "3.9.1",
     "eslint-config-airbnb": "12.0.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
+    "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "6.5.0",
     "husky": "0.11.9",
     "istanbul": "0.4.5",
     "mocha": "3.1.2",
-    "mocha-lcov-reporter": "1.2.0"
+    "mocha-lcov-reporter": "1.2.0",
+    "standard-version": "^4.4.0"
   }
 }
