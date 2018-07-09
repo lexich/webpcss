@@ -1,4 +1,4 @@
-/* global describe, it*/
+/* global describe, it */
 /* eslint no-var: 0, max-len: 0 */
 /* eslint import/no-extraneous-dependencies: 0 */
 
@@ -85,10 +85,10 @@ describe("webpcss", ()=> {
   });
 
   it("default options multiple mixed clasess", ()=> {
-    var input = ".test1 { background: url(\"test1.jpeg\"); }" +
-        ".test2 { background-image: url('test2.png'); }";
-    var output = ".test1 { background: url(\"test1.jpeg\"); }" +
-      ".test2 { background-image: url('test2.png'); }" + ".webp .test1 { background: url(test1.webp); }" + ".webp .test2 { background-image: url(test2.webp); }";
+    var input = ".test1 { background: url(\"test1.jpeg\"); }"
+        + ".test2 { background-image: url('test2.png'); }";
+    var output = ".test1 { background: url(\"test1.jpeg\"); }"
+      + ".test2 { background-image: url('test2.png'); }" + ".webp .test1 { background: url(test1.webp); }" + ".webp .test2 { background-image: url(test2.webp); }";
 
     return transform(input).then((res)=> {
       expect(output).to.be.eql(res.css);
@@ -144,7 +144,7 @@ describe("webpcss", ()=> {
     var input = ".test { background: transparent url(test.png); color: red; }";
     return transform(input, { noWebpClass: ".no-webp" }).then((res)=> {
       expect(".no-webp .test { background: transparent url(test.png); }" + "\n.test { color: red; }" + "\n.webp .test { background: transparent url(test.webp); }")
-          .to.be.eql(res.css);
+        .to.be.eql(res.css);
     });
   });
 
@@ -166,6 +166,16 @@ describe("webpcss", ()=> {
     var input = ".test { background-image: url(test.jpg); }";
     return transform(input, { replace_to: ".other" }).then((res)=> {
       expect(input + "\n.webp .test { background-image: url(test.other); }").to.be.eql(res.css);
+    });
+  });
+
+  it("custom options replace_to function background-image with url", ()=> {
+    var input = ".test { background-image: url(test.jpg); }";
+    return transform(input, { replace_to(data) {
+      expect(data.url).to.be.eql("test.jpg");
+      return "hello.world?text=test";
+    } }).then((res)=> {
+      expect(input + "\n.webp .test { background-image: url(hello.world?text=test); }").to.be.eql(res.css);
     });
   });
 
@@ -194,12 +204,12 @@ describe("webpcss", ()=> {
   });
 
   it("check with multiple @media-query with other rule and decls", ()=> {
-    var input = "@media all and (max-width:200px){" +
-                " .garbage{ color: blue; } " +
-                "@media all and (min-width:100px){" +
-                " .test { " +
-                "background-image: url(test.jpg); color: red; " +
-                "} } }";
+    var input = "@media all and (max-width:200px){"
+                + " .garbage{ color: blue; } "
+                + "@media all and (min-width:100px){"
+                + " .test { "
+                + "background-image: url(test.jpg); color: red; "
+                + "} } }";
     var output = input + " @media all and (max-width:200px){ @media all and (min-width:100px){ .webp .test{ background-image: url(test.webp); } } }";
     transform(input).then((res)=> {
       expect(output).to.be.eql(res.css);
@@ -231,6 +241,81 @@ describe("webpcss", ()=> {
 
       expect(css).to.match(/data:image\/webp;base64,/);
       expect(css).to.match(/\.webp \.test { background: url\(data:image\/webp;base64,/);
+    });
+  });
+
+  it("check convert base64 webp options background data uri and should do nothing", ()=> {
+    var input = ".test { background: " + base64stub.webp_base64 + " no-repeat; }";
+    return transform(input).then((res)=> {
+      var css = res.css;
+      expect(css).to.be.eql(input);
+    });
+  });
+
+  it("check resolveUrlRelativeToFile and file size above minAddClassFileSize", ()=> {
+    var input = ".test { background: url(avatar.png); }";
+    var fixturesPath = libpath.join(__dirname, "fixtures");
+    return transform(input, { resolveUrlRelativeToFile: true, minAddClassFileSize: 1 }, {
+      from: libpath.join(fixturesPath, "test.css")
+    }).then((res)=> {
+      var css = res.css;
+      expect(input + "\n.webp .test { background: url(avatar.webp); }").to.be.eql(css);
+    });
+  });
+
+  it("check resolveUrlRelativeToFile and file size below minAddClassFileSize", ()=> {
+    var input = ".test { background: url(avatar.png); }";
+    var fixturesPath = libpath.join(__dirname, "fixtures");
+    return transform(input, { resolveUrlRelativeToFile: true, minAddClassFileSize: 1024 * 1024 }, {
+      from: libpath.join(fixturesPath, "test.css")
+    }).then((res)=> {
+      var css = res.css;
+      expect(input).to.be.eql(css);
+    });
+  });
+
+  it("check resolveUrlRelativeToFile and file size above minAddClassFileSize with inline", ()=> {
+    var input = ".test { background: url(avatar.png); }";
+    var fixturesPath = libpath.join(__dirname, "fixtures");
+    return transform(input, { inline: true, resolveUrlRelativeToFile: true, minAddClassFileSize: 1 }, {
+      from: libpath.join(fixturesPath, "test.css")
+    }).then((res)=> {
+      var css = res.css;
+      expect(css).to.contain(".test { background: url(avatar.png); }");
+      expect(css).to.contain(".webp .test { background: url(data:image/webp;base64,");
+    });
+  });
+
+  it("check resolveUrlRelativeToFile and file size below minAddClassFileSize with inline", ()=> {
+    var input = ".test { background: url(avatar.png); }";
+    var fixturesPath = libpath.join(__dirname, "fixtures");
+    return transform(input, { resolveUrlRelativeToFile: true, minAddClassFileSize: 1024 * 1024 }, {
+      from: libpath.join(fixturesPath, "test.css")
+    }).then((res)=> {
+      var css = res.css;
+      expect(input).to.be.eql(css);
+    });
+  });
+
+  it("check file size below minAddClassFileSize with base64 encoded content", ()=> {
+    var input = ".test { background: " + base64stub.png_css + " no-repeat; }";
+    return transform(input, { minAddClassFileSize: 1 }).then((res)=> {
+      var css = res.css;
+      expect(css).to.match(/data:image\/png;base64,/);
+      expect(css).to.match(/\.test { background: url\(data:image\/png;base64,/);
+
+      expect(css).to.not.match(/\.test { }/);
+
+      expect(css).to.match(/data:image\/webp;base64,/);
+      expect(css).to.match(/\.webp \.test { background: url\(data:image\/webp;base64,/);
+    });
+  });
+
+  it("check file size above minAddClassFileSize with base64 encoded content", ()=> {
+    var input = ".test { background: " + base64stub.png_css + " no-repeat; }";
+    return transform(input, { minAddClassFileSize: 1024 * 1024 }).then((res)=> {
+      var css = res.css;
+      expect(input).to.be.eql(css);
     });
   });
 
