@@ -169,6 +169,62 @@ describe("webpcss", () => {
     });
   });
 
+  it("custom options replaceRemoteImage to true background-image with remote url '//foo.com/test.jpg'", () => {
+    var input = ".test { background-image: url(//foo.com/test.jpg); }";
+    return transform(input, {}).then(res => {
+      expect(input + "\n.webp .test { background-image: url(//foo.com/test.webp); }").to.be.eql(res.css);
+    });
+  });
+
+  it("custom options replaceRemoteImage to true background-image with remote url 'http://foo.com/test.jpg'", () => {
+    var input = ".test { background-image: url(http://foo.com/test.jpg); }";
+    return transform(input, {}).then(res => {
+      expect(input + "\n.webp .test { background-image: url(http://foo.com/test.webp); }").to.be.eql(res.css);
+    });
+  });
+
+  it("custom options replaceRemoteImage to true background-image with remote url 'https://foo.com/test.jpg'", () => {
+    var input = ".test { background-image: url(https://foo.com/test.jpg); }";
+    return transform(input, {}).then(res => {
+      expect(input + "\n.webp .test { background-image: url(https://foo.com/test.webp); }").to.be.eql(res.css);
+    });
+  });
+
+  it("custom options replaceRemoteImage to false background-image with remote url '//foo.com/test.jpg'", () => {
+    var input = ".test { background-image: url(//foo.com/test.jpg); }";
+    return transform(input, { replaceRemoteImage: false }).then(res => {
+      expect(input).to.be.eql(res.css);
+    });
+  });
+
+  it("custom options replaceRemoteImage to false background-image with remote url 'http://foo.com/test.jpg'", () => {
+    var input = ".test { background-image: url(http://foo.com/test.jpg); }";
+    return transform(input, { replaceRemoteImage: false }).then(res => {
+      expect(input).to.be.eql(res.css);
+    });
+  });
+
+  it("custom options replaceRemoteImage to false background-image with remote url 'https://foo.com/test.jpg'", () => {
+    var input = ".test { background-image: url(https://foo.com/test.jpg); }";
+    return transform(input, { replaceRemoteImage: false }).then(res => {
+      expect(input).to.be.eql(res.css);
+    });
+  });
+
+  it("custom options copyBackgroundSize to false with background-size rule", () => {
+    var input = ".test { background-image: url(test.jpg); background-size: auto; }";
+    return transform(input, {}).then(res => {
+      expect(input + "\n.webp .test { background-image: url(test.webp); }").to.be.eql(res.css);
+    });
+  });
+
+  it("custom options copyBackgroundSize to true with background-size rule", () => {
+    var input = ".test { background-image: url(test.jpg); background-size: auto; }";
+    return transform(input, { copyBackgroundSize: true }).then(res => {
+      expect(input + "\n.webp .test { background-image: url(test.webp); background-size: auto; }").to.be.eql(res.css);
+    });
+  });
+
   it("custom options replace_to background-image with url", () => {
     var input = ".test { background-image: url(test.jpg); }";
     return transform(input, { replace_to: ".other" }).then(res => {

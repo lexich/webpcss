@@ -183,12 +183,23 @@ Type: Boolean
 Default: false  
 This property needs to resolve relative paths `url(../images/1.png)` `url(image.png)` while inlining images or other file info options. It will try to find resource file relative to current css file when it's true and `css_root` is not set.
 
+- `copyBackgroundSize`  
+Type: Boolean  
+Default: false  
+It will copy the `background-size` rule of same scope into the webp class rules if it's true
+
+- `replaceRemoteImage`  
+Type: Boolean  
+Default: true  
+It will add webp class when the url it's with host(eg. `url(//foo.com/image.png)` or `url(http://foo.com/image.png)` or `url(https://foo.com/image.png)`) if it's true
+
 - `cwebp_configurator`  
 Type: function(encoder){}  
 Default: null  
 You can configure cwebp encoder according [cwebp documentation](https://github.com/Intervox/node-webp#specifying-conversion-options)
 
 ### Changelog
+- 1.2.1 - Add options `copyBackgroundSize`, `replaceRemoteImage`, bug fixes for absolute URL detection and unsupported based64 encoded content.
 - 1.2.0 - Improve cross platform compatibility, add Function type as replace_to option, add options `minAddClassFileSize`, `resolveUrlRelativeToFile`
 - 1.1.0 - add webpClass, noWebpClass options deprecate baseClass option
 - 1.0.0 - add suport CWeb for automatic inline images in webp format
