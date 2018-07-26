@@ -1,6 +1,6 @@
 {
   "name": "webpcss",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "postcss processor for prepare css to use webp images",
   "main": "dist/index.js",
   "repository": "http://github.com/lexich/webpcss",
@@ -32,9 +32,11 @@
     "cwebp": "^2.0.3",
     "file-type": "^8.1.0",
     "lodash": "^4.17.10",
+    "mime-types": "^2.1.19",
+    "parse-data-uri": "^0.2.0",
     "postcss": "5.2.5",
     "prettier": "^1.13.7",
-    "urldata": "^0.0.1",
+    "urldata": "^0.0.2",
     "webp-converter": "2.1.6"
   },
   "devDependencies": {

@@ -314,8 +314,24 @@ describe("webpcss", () => {
     });
   });
 
+  it("check convert inline base64 svg and should do nothing", () => {
+    var input = ".test { background: url(" + base64stub.svg_base64_uri + ") no-repeat; }";
+    return transform(input).then(res => {
+      var css = res.css;
+      expect(css).to.be.eql(input);
+    });
+  });
+
+  it("check convert inline content uri svg and should do nothing", () => {
+    var input = ".test { background: url(" + base64stub.svg_content_uri + ") no-repeat; }";
+    return transform(input).then(res => {
+      var css = res.css;
+      expect(css).to.be.eql(input);
+    });
+  });
+
   it("check convert base64 webp options background data uri and should do nothing", () => {
-    var input = ".test { background: " + base64stub.webp_base64 + " no-repeat; }";
+    var input = ".test { background: url(" + base64stub.webp_uri + ") no-repeat; }";
     return transform(input).then(res => {
       var css = res.css;
       expect(css).to.be.eql(input);

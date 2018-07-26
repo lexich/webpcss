@@ -45,6 +45,16 @@ describe("base64", () => {
     expect([{ mimetype: "image/png", data: base64stub.png_base64 }]).to.eql(res);
   });
 
+  it("extract svg", () => {
+    var res = WebpBase64.extractor(base64stub.svg_content_uri);
+    expect(res.mimetype).to.be.eql("image/svg+xml");
+    expect(decodeURIComponent(res.data)).to.be.eql(base64stub.svg_content);
+
+    res = WebpBase64.extractor(base64stub.svg_base64_uri);
+    expect(res.mimetype).to.be.eql("image/svg+xml");
+    expect(res.data.toString("base64")).to.be.eql(base64stub.svg_base64);
+  });
+
   it("extract multiple png", () => {
     var png = "data:image/png;base64,iVBORw";
     var urlPng2 = "url(" + png + "), url(" + png + ")";
@@ -59,13 +69,7 @@ describe("base64", () => {
       base64.extract("data_:image/png;base64,iVBORw")
     );
 
-    expect([{ mimetype: "url", data: "data:image/pngbase64,iVBORw" }]).to.eql(
-      base64.extract("data:image/pngbase64,iVBORw")
-    );
-
-    expect([{ mimetype: "url", data: "data:image/png;base64iVBORw" }]).to.eql(
-      base64.extract("data:image/png;base64iVBORw")
-    );
+    expect([{ mimetype: "url", data: "data:image/png;base64iVBORw" }]).to.throw;
   });
 
   it("test convert data with node-webp png", () =>
