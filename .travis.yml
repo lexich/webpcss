@@ -3,9 +3,10 @@ sudo: true
 before_install:
   - curl -s https://raw.githubusercontent.com/Intervox/node-webp/latest/bin/install_webp | sudo bash
 node_js:
-  - 4.0
   - 5.0
   - 6.0
   - 7.0
+  - 8.0
+  - 10.0
 after_script:
   - npm run coveralls

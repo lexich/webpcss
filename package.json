@@ -36,7 +36,7 @@
     "parse-data-uri": "^0.2.0",
     "postcss": "5.2.5",
     "prettier": "^1.13.7",
-    "urldata": "^0.0.2",
+    "urldata": "0.0.4",
     "webp-converter": "2.1.6"
   },
   "devDependencies": {
