@@ -6,6 +6,7 @@
 
 import libpath from "path";
 import { expect } from "chai";
+import sinon from "sinon";
 import Promise from "es6-promise";
 import { transform } from "../lib";
 import base64stub from "./fixtures/base64";
@@ -395,6 +396,153 @@ describe("webpcss", () => {
       }
     ).then(res => {
       var css = res.css;
+      expect(input).to.be.eql(css);
+    });
+  });
+
+  it("check localImgFileLocator with url of special grammar of other css preprocessor and file size above minAddClassFileSize", () => {
+    var urlWithoutExt = "~/path/to/avatar";
+    var url = urlWithoutExt + ".png";
+    var input = ".test { background: url(" + url + "); }";
+    var fixturesPath = libpath.join(__dirname, "fixtures");
+    var pathFrom = libpath.join(fixturesPath, "test.css");
+    var expectedPath = libpath.resolve(pathFrom);
+    var fileLocation = libpath.resolve(__dirname, "fixtures/avatar.png");
+    var localImgFileLocator = sinon.spy(() => fileLocation);
+    return transform(
+      input,
+      {
+        // should be ignore
+        resolveUrlRelativeToFile: true,
+        // should be ignore
+        img_root: "/path-not-exists",
+        // should be ignore
+        css_root: "/path-not-exists",
+        localImgFileLocator,
+        minAddClassFileSize: 1,
+      },
+      {
+        from: pathFrom,
+      }
+    ).then(res => {
+      var css = res.css;
+      expect(
+        localImgFileLocator.alwaysCalledWith({
+          url,
+          cssFilePath: expectedPath,
+        })
+      );
+      expect(input + "\n.webp .test { background: url(" + urlWithoutExt + ".webp); }").to.be.eql(css);
+    });
+  });
+
+  it("check localImgFileLocator with url of special grammar of other css preprocessor and file size below minAddClassFileSize", () => {
+    var urlWithoutExt = "~/path/to/avatar";
+    var url = urlWithoutExt + ".png";
+    var input = ".test { background: url(" + url + "); }";
+    var fixturesPath = libpath.join(__dirname, "fixtures");
+    var pathFrom = libpath.join(fixturesPath, "test.css");
+    var expectedPath = libpath.resolve(pathFrom);
+    var fileLocation = libpath.resolve(__dirname, "fixtures/avatar.png");
+    var localImgFileLocator = sinon.spy(() => fileLocation);
+    return transform(
+      input,
+      {
+        // should be ignore
+        resolveUrlRelativeToFile: true,
+        // should be ignore
+        img_root: "/path-not-exists",
+        // should be ignore
+        css_root: "/path-not-exists",
+        localImgFileLocator,
+        minAddClassFileSize: 1024 * 1024,
+      },
+      {
+        from: pathFrom,
+      }
+    ).then(res => {
+      var css = res.css;
+      expect(
+        localImgFileLocator.alwaysCalledWith({
+          url,
+          cssFilePath: expectedPath,
+        })
+      );
+      expect(input).to.be.eql(css);
+    });
+  });
+
+  it("check localImgFileLocator with url of special grammar of other css preprocessor and file size above minAddClassFileSize with inline", () => {
+    var urlWithoutExt = "~/path/to/avatar";
+    var url = urlWithoutExt + ".png";
+    var input = ".test { background: url(" + url + "); }";
+    var fixturesPath = libpath.join(__dirname, "fixtures");
+    var pathFrom = libpath.join(fixturesPath, "test.css");
+    var expectedPath = libpath.resolve(pathFrom);
+    var fileLocation = libpath.resolve(__dirname, "fixtures/avatar.png");
+    var localImgFileLocator = sinon.spy(() => fileLocation);
+    return transform(
+      input,
+      {
+        // should be ignore
+        resolveUrlRelativeToFile: true,
+        // should be ignore
+        img_root: "/path-not-exists",
+        // should be ignore
+        css_root: "/path-not-exists",
+        localImgFileLocator,
+        minAddClassFileSize: 1,
+        inline: true,
+      },
+      {
+        from: pathFrom,
+      }
+    ).then(res => {
+      var css = res.css;
+      expect(
+        localImgFileLocator.alwaysCalledWith({
+          url,
+          cssFilePath: expectedPath,
+        })
+      );
+      expect(css).to.contain(".test { background: url(" + urlWithoutExt + ".png); }");
+      expect(css).to.contain(".webp .test { background: url(data:image/webp;base64,");
+    });
+  });
+
+  it("check localImgFileLocator with url of special grammar of other css preprocessor and file size below minAddClassFileSize with inline", () => {
+    var urlWithoutExt = "~/path/to/avatar";
+    var url = urlWithoutExt + ".png";
+    var input = ".test { background: url(" + url + "); }";
+    var fixturesPath = libpath.join(__dirname, "fixtures");
+    var pathFrom = libpath.join(fixturesPath, "test.css");
+    var expectedPath = libpath.resolve(pathFrom);
+    var fileLocation = libpath.resolve(__dirname, "fixtures/avatar.png");
+    var localImgFileLocator = sinon.spy(() => fileLocation);
+    return transform(
+      input,
+      {
+        // should be ignore
+        resolveUrlRelativeToFile: true,
+        // should be ignore
+        img_root: "/path-not-exists",
+        // should be ignore
+        css_root: "/path-not-exists",
+        localImgFileLocator,
+        minAddClassFileSize: 1024 * 1024,
+        inline: true,
+      },
+      {
+        from: pathFrom,
+      }
+    ).then(res => {
+      var css = res.css;
+      expect(
+        localImgFileLocator.alwaysCalledWith({
+          url,
+          cssFilePath: expectedPath,
+        })
+      );
       expect(input).to.be.eql(css);
     });
   });

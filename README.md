@@ -181,7 +181,19 @@ Default: 0
 - `resolveUrlRelativeToFile`  
 Type: Boolean  
 Default: false  
-This property needs to resolve relative paths `url(../images/1.png)` `url(image.png)` while inlining images or other file info options. It will try to find resource file relative to current css file when it's true and `css_root` is not set.
+This property is needed to resolve relative paths `url(../images/1.png)` `url(image.png)` while inlining images or other options which are relative to file info . It will try to find resource file relative to current css file when it's true and `css_root` is not set.
+
+- `localImgFileLocator`
+Type: Function  
+Default: null  
+When this property is set, it will be used to resolve the file path of image from the css url value while inlining images or other options which are relative to file info. In addition, `resolveUrlRelativeToFile`, `css_root`, `image_root` will be ignored.  
+This function should return the exact file path in the file system and it has an argument object, which contains the following properties:  
+```javascript
+{
+  url, // The original url in the css value
+  cssFilePath, // The absolute file path of the css file
+}
+```
 
 - `copyBackgroundSize`  
 Type: Boolean  
@@ -199,6 +211,7 @@ Default: null
 You can configure cwebp encoder according [cwebp documentation](https://github.com/Intervox/node-webp#specifying-conversion-options)
 
 ### Changelog
+- 1.3.0 - Add option `localImgFileLocator`
 - 1.2.1 - Add options `copyBackgroundSize`, `replaceRemoteImage`, bug fixes for absolute URL detection and unsupported based64 encoded content.
 - 1.2.0 - Improve cross platform compatibility, add Function type as replace_to option, add options `minAddClassFileSize`, `resolveUrlRelativeToFile`
 - 1.1.0 - add webpClass, noWebpClass options deprecate baseClass option

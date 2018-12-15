@@ -133,7 +133,21 @@ var Webpcss = function () {
         var canLocalResolve = canURLLocalResolve(url);
 
         if (canLocalResolve) {
-          if (url[0] === "/") {
+          var localImgFileLocator = options.localImgFileLocator;
+
+          if (localImgFileLocator) {
+            var input = decl.source.input;
+            if (input && input.file) {
+              var file = input.file;
+              var cssFilePath = _path2.default.resolve(file);
+              urlPath = localImgFileLocator({
+                url: url,
+                cssFilePath: cssFilePath
+              });
+            } else {
+              console.warn("Source input not found: " + url);
+            }
+          } else if (url[0] === "/") {
             /* url(/image.png) abs path */
             urlPath = _path2.default.resolve(_path2.default.join(options.image_root, url));
           } else {
@@ -144,10 +158,10 @@ var Webpcss = function () {
               urlPath = _path2.default.resolve(_path2.default.join(options.css_root, url));
             } else if (resolveUrlRelativeToFile) {
               // resolve relative path automatically
-              var input = decl.source.input;
-              if (input && input.file) {
-                var file = input.file;
-                urlPath = _path2.default.resolve(_path2.default.join(_path2.default.dirname(file), url));
+              var _input = decl.source.input;
+              if (_input && _input.file) {
+                var _file = _input.file;
+                urlPath = _path2.default.resolve(_path2.default.join(_path2.default.dirname(_file), url));
               } else {
                 console.warn("Source input not found: " + url);
               }
