@@ -29,15 +29,14 @@
   },
   "license": "MIT",
   "dependencies": {
-    "cwebp": "^2.0.3",
-    "file-type": "^8.1.0",
-    "lodash": "^4.17.10",
-    "mime-types": "^2.1.19",
-    "parse-data-uri": "^0.2.0",
     "postcss": "5.2.5",
-    "prettier": "^1.13.7",
     "urldata": "0.0.4",
-    "webp-converter": "2.1.6"
+    "cwebp": "^2.0.3",
+    "parse-data-uri": "^0.2.0",
+    "webp-converter": "2.1.6",
+    "mime-types": "^2.1.19",
+    "file-type": "^8.1.0",
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
     "babel": "6.5.2",
@@ -62,6 +61,10 @@
     "mocha": "3.1.2",
     "mocha-lcov-reporter": "1.2.0",
     "sinon": "^7.2.2",
-    "standard-version": "^4.4.0"
+    "standard-version": "^4.4.0",
+    "cryptiles": ">=4.1.2",
+    "growl": ">=1.10.0",
+    "hoek": ">=4.2.1",
+    "prettier": "^1.13.7"
   }
 }
