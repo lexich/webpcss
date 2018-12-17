@@ -138,8 +138,7 @@ var Webpcss = function () {
           if (localImgFileLocator) {
             var input = decl.source.input;
             if (input && input.file) {
-              var file = input.file;
-              var cssFilePath = _path2.default.resolve(file);
+              var cssFilePath = _path2.default.resolve(input.file);
               urlPath = localImgFileLocator({
                 url: url,
                 cssFilePath: cssFilePath
@@ -160,8 +159,8 @@ var Webpcss = function () {
               // resolve relative path automatically
               var _input = decl.source.input;
               if (_input && _input.file) {
-                var _file = _input.file;
-                urlPath = _path2.default.resolve(_path2.default.join(_path2.default.dirname(_file), url));
+                var file = _input.file;
+                urlPath = _path2.default.resolve(_path2.default.join(_path2.default.dirname(file), url));
               } else {
                 console.warn("Source input not found: " + url);
               }
