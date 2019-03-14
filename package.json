@@ -36,7 +36,7 @@
     "webp-converter": "2.1.6",
     "mime-types": "^2.1.19",
     "file-type": "^8.1.0",
-    "lodash": "^4.17.10"
+    "lodash": ">=4.17.11"
   },
   "devDependencies": {
     "babel": "6.5.2",
@@ -66,5 +66,9 @@
     "growl": ">=1.10.0",
     "hoek": ">=4.2.1",
     "prettier": "^1.13.7"
+  },
+  "resolutions": {
+    "extend": ">=3.0.2",
+    "just-extend": ">=4.0.0"
   }
 }
