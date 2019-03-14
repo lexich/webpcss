@@ -255,7 +255,10 @@ var Webpcss = function () {
           var _shouldAddClass = true;
           var ext = _mimeTypes2.default.extension(item.mimetype);
           if (!ext) {
-            ext = (0, _fileType2.default)(buffer).ext;
+            var ft = (0, _fileType2.default)(buffer);
+            if (ft) {
+              ext = ft.ext;
+            }
           }
           // Unsupported types guarding
           if (!/png|jpg|jpeg|gif/i.test(ext)) {
