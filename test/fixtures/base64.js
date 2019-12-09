@@ -10,7 +10,7 @@ var jpgbinary = fs.readFileSync(libpath.join(__dirname, "kitten.jpg"));
 var svgContent = fs.readFileSync(libpath.join(__dirname, "circle.svg"), {
   encoding: "utf-8",
 });
-var svgbinary = new Buffer(svgContent);
+var svgbinary = Buffer.from(svgContent);
 
 var pngbase64 = pngbinary.toString("base64");
 var jpgbase64 = jpgbinary.toString("base64");

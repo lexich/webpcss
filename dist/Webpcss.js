@@ -14,6 +14,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _mimeTypes = require("mime-types");
@@ -89,7 +91,7 @@ var Webpcss = function () {
     if (!opts) {
       this.options = DEFAULTS;
     } else {
-      this.options = Object.assign({}, DEFAULTS, opts);
+      this.options = _extends({}, DEFAULTS, opts);
       if (opts.baseClass) {
         this.options.webpClass = opts.baseClass;
         delete opts.baseClass;
@@ -137,6 +139,7 @@ var Webpcss = function () {
 
           if (localImgFileLocator) {
             var input = decl.source.input;
+
             if (input && input.file) {
               var cssFilePath = _path2.default.resolve(input.file);
               urlPath = localImgFileLocator({
@@ -158,8 +161,10 @@ var Webpcss = function () {
             } else if (resolveUrlRelativeToFile) {
               // resolve relative path automatically
               var _input = decl.source.input;
+
               if (_input && _input.file) {
                 var file = _input.file;
+
                 urlPath = _path2.default.resolve(_path2.default.join(_path2.default.dirname(file), url));
               } else {
                 console.warn("Source input not found: " + url);
@@ -250,7 +255,7 @@ var Webpcss = function () {
             }
           }
         } else {
-          var buffer = url instanceof Buffer ? url : new Buffer(url, "base64");
+          var buffer = url instanceof Buffer ? url : Buffer.from(url, "base64");
 
           var _shouldAddClass = true;
           var ext = _mimeTypes2.default.extension(item.mimetype);
@@ -296,7 +301,9 @@ var Webpcss = function () {
               return options.process_selector(sel, options.noWebpClass);
             }).join(", ");
 
-            var noWebpRule = Webpcss.formatRule(originalRule.cloneBefore({ selector: selectorNoWebP }));
+            var noWebpRule = Webpcss.formatRule(originalRule.cloneBefore({
+              selector: selectorNoWebP
+            }));
 
             decl.raws.before = " ";
             decl.moveTo(noWebpRule);
@@ -307,9 +314,14 @@ var Webpcss = function () {
             return val.indexOf("url") >= 0 ? val.replace(/(url)\(.*\)/, urls.shift()) : val;
           }).join(" ");
 
-          var webpRule = Webpcss.formatRule(originalRule.clone({ selector: selector }));
+          var webpRule = Webpcss.formatRule(originalRule.clone({
+            selector: selector
+          }));
 
-          var webpDecl = decl.clone({ prop: decl.prop, value: value });
+          var webpDecl = decl.clone({
+            prop: decl.prop,
+            value: value
+          });
           webpDecl.raws.semicolon = true;
           webpDecl.raws.before = " ";
 
@@ -356,4 +368,4 @@ var Webpcss = function () {
 }();
 
 exports.default = Webpcss;
-module.exports = exports["default"];
+module.exports = exports.default;

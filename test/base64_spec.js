@@ -14,7 +14,7 @@ describe("base64", () => {
   var base64 = new WebpBase64();
 
   it("test base64 data", () => {
-    expect(new Buffer(base64stub.png_base64, "base64").toString()).to.eql(base64stub.png_bin.toString());
+    expect(Buffer.from(base64stub.png_base64, "base64").toString()).to.eql(base64stub.png_bin.toString());
   });
 
   it("extract png", () => {

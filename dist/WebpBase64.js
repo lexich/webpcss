@@ -64,7 +64,7 @@ var WebpBase64 = function () {
   }, {
     key: "convert",
     value: function convert(data, fConfig) {
-      var buffer = data instanceof Buffer ? data : new Buffer(data, "base64");
+      var buffer = data instanceof Buffer ? data : Buffer.from(data, "base64");
       var encoderBase = new _cwebp.CWebp(buffer, webpBinPath);
       var encoder = fConfig ? fConfig(encoderBase) : encoderBase;
       return encoder.toBuffer();
@@ -100,4 +100,4 @@ var WebpBase64 = function () {
 }();
 
 exports.default = WebpBase64;
-module.exports = exports["default"];
+module.exports = exports.default;
